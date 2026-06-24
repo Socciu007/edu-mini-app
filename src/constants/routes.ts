@@ -1,8 +1,5 @@
-export const Routes = {
-  merchant: {
-    page: () => `/`,
-    cart: () => `/orders?tab=cart`,
-    orders: () => `/orders?tab=orders`,
-    info: () => `/info`,
-  },
-}
+export const ROUTES = {
+  home: '/',
+  chat: '/chat',
+  settings: '/settings',
+} as const;
