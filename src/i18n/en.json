@@ -11,6 +11,7 @@
     "settings": "Settings",
     "back": "Back",
     "empty": "Pick a subject and let's go!",
+    "changeSubject": "Change subject",
     "starterPrompts": [
       "Give me a math question",
       "Explain photosynthesis",
@@ -24,8 +25,37 @@
     "chemistry": "Chemistry",
     "english": "English"
   },
-  "settings": {
-    "title": "Settings",
+  "tabs": {
+    "chat": "Chat",
+    "survey": "Survey",
+    "review": "Review",
+    "user": "Profile"
+  },
+  "survey": {
+    "title": "Quick survey",
+    "description": "Answer 5 random questions. 30 seconds each.",
+    "start": "Start",
+    "progress": "Question {{current}} of {{total}}",
+    "timeLeft": "{{seconds}}s",
+    "skip": "Skip",
+    "correct": "Correct",
+    "incorrect": "Wrong",
+    "scoreTitle": "Results",
+    "score": "You got {{correct}} of {{total}}",
+    "retry": "Try again",
+    "backToChat": "Back to Chat"
+  },
+  "review": {
+    "title": "Review",
+    "stats": "Overview",
+    "asked": "Attempted",
+    "correct": "Correct",
+    "accuracy": "Accuracy",
+    "history": "History",
+    "empty": "No conversations yet. Start from the Chat tab!"
+  },
+  "user": {
+    "title": "Profile",
     "language": "Language",
     "languageVi": "Tiếng Việt",
     "languageEn": "English",

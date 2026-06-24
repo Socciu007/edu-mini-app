@@ -11,6 +11,7 @@
     "settings": "Cài đặt",
     "back": "Quay lại",
     "empty": "Hãy chọn môn học và bắt đầu!",
+    "changeSubject": "Đổi môn",
     "starterPrompts": [
       "Cho tôi câu hỏi Toán",
       "Explain photosynthesis",
@@ -24,8 +25,37 @@
     "chemistry": "Hóa học",
     "english": "Tiếng Anh"
   },
-  "settings": {
-    "title": "Cài đặt",
+  "tabs": {
+    "chat": "Chat",
+    "survey": "Khảo sát",
+    "review": "Review",
+    "user": "Cá nhân"
+  },
+  "survey": {
+    "title": "Khảo sát nhanh",
+    "description": "Trả lời 5 câu hỏi ngẫu nhiên. Mỗi câu có 30 giây.",
+    "start": "Bắt đầu",
+    "progress": "Câu {{current}} / {{total}}",
+    "timeLeft": "{{seconds}}s",
+    "skip": "Bỏ qua",
+    "correct": "Đúng",
+    "incorrect": "Sai",
+    "scoreTitle": "Kết quả",
+    "score": "Bạn đúng {{correct}} / {{total}}",
+    "retry": "Làm lại",
+    "backToChat": "Về Chat"
+  },
+  "review": {
+    "title": "Review",
+    "stats": "Tổng quan",
+    "asked": "Đã làm",
+    "correct": "Đúng",
+    "accuracy": "Tỷ lệ đúng",
+    "history": "Lịch sử",
+    "empty": "Bạn chưa có cuộc trò chuyện nào. Hãy bắt đầu từ tab Chat!"
+  },
+  "user": {
+    "title": "Cá nhân",
     "language": "Ngôn ngữ",
     "languageVi": "Tiếng Việt",
     "languageEn": "English",
