@@ -1,6 +1,6 @@
 {
   "app": {
-    "title": "edu-mini-app",
+    "title": "Edu Chat",
     "textColor": "black",
     "statusBar": "transparent",
     "actionBarHidden": true,
@@ -9,12 +9,8 @@
   },
   "debug": false,
   "pages": [],
-  "listSyncJS": [
-    "assets/index.1.0.0.module.js"
-  ],
+  "listSyncJS": ["assets/index.1.0.0.module.js"],
   "listAsyncJS": [],
   "listCSS": [],
-  "template": {
-    "name": "zaui-menu"
-  }
+  "template": { "name": "edu-chat" }
 }
