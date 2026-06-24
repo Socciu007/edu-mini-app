@@ -1,0 +1,52 @@
+{
+  "home": {
+    "title": "Trợ lý học tập",
+    "subtitle": "Hỏi đáp, luyện tập mỗi ngày",
+    "getStarted": "Bắt đầu"
+  },
+  "chat": {
+    "placeholder": "Nhập câu hỏi hoặc đáp án...",
+    "send": "Gửi",
+    "newSession": "Phiên mới",
+    "settings": "Cài đặt",
+    "back": "Quay lại",
+    "empty": "Hãy chọn môn học và bắt đầu!",
+    "starterPrompts": [
+      "Cho tôi câu hỏi Toán",
+      "Explain photosynthesis",
+      "Hóa học lớp 10",
+      "Tiếng Anh ngữ pháp"
+    ]
+  },
+  "subjects": {
+    "math": "Toán",
+    "physics": "Vật lý",
+    "chemistry": "Hóa học",
+    "english": "Tiếng Anh"
+  },
+  "settings": {
+    "title": "Cài đặt",
+    "language": "Ngôn ngữ",
+    "languageVi": "Tiếng Việt",
+    "languageEn": "English",
+    "provider": "Nguồn câu hỏi",
+    "providerAuto": "Tự động (ưu tiên cục bộ)",
+    "providerLocal": "Chỉ ngân hàng cục bộ",
+    "providerAi": "Chỉ AI",
+    "reset": "Bắt đầu lại cuộc trò chuyện",
+    "about": "Giới thiệu",
+    "aiStatus": "Trạng thái AI",
+    "aiReady": "Đã cấu hình",
+    "aiNotConfigured": "Chưa cấu hình"
+  },
+  "errors": {
+    "aiOffline": "Không kết nối được AI. Thử lại sau.",
+    "aiNotConfigured": "AI chưa được cấu hình. Dùng ngân hàng câu hỏi cục bộ.",
+    "retry": "Thử lại",
+    "storageFull": "Bộ nhớ đầy, không lưu được."
+  },
+  "feedback": {
+    "correct": "Chính xác! 🎉",
+    "incorrect": "Chưa đúng. Đáp án: {{answer}}"
+  }
+}

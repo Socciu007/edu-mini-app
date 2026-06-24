@@ -1,0 +1,52 @@
+{
+  "home": {
+    "title": "Study Assistant",
+    "subtitle": "Ask, practice, learn every day",
+    "getStarted": "Get started"
+  },
+  "chat": {
+    "placeholder": "Type a question or answer...",
+    "send": "Send",
+    "newSession": "New session",
+    "settings": "Settings",
+    "back": "Back",
+    "empty": "Pick a subject and let's go!",
+    "starterPrompts": [
+      "Give me a math question",
+      "Explain photosynthesis",
+      "Chemistry basics",
+      "English grammar"
+    ]
+  },
+  "subjects": {
+    "math": "Math",
+    "physics": "Physics",
+    "chemistry": "Chemistry",
+    "english": "English"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "languageVi": "Tiếng Việt",
+    "languageEn": "English",
+    "provider": "Question source",
+    "providerAuto": "Auto (prefer local)",
+    "providerLocal": "Local bank only",
+    "providerAi": "AI only",
+    "reset": "Start a new conversation",
+    "about": "About",
+    "aiStatus": "AI status",
+    "aiReady": "Configured",
+    "aiNotConfigured": "Not configured"
+  },
+  "errors": {
+    "aiOffline": "AI is unreachable. Try again later.",
+    "aiNotConfigured": "AI is not configured. Using local question bank.",
+    "retry": "Retry",
+    "storageFull": "Storage is full; changes not saved."
+  },
+  "feedback": {
+    "correct": "Correct! 🎉",
+    "incorrect": "Not quite. Answer: {{answer}}"
+  }
+}
