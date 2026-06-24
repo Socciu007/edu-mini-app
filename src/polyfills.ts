@@ -1,9 +1,4 @@
-import '@formatjs/intl-numberformat/polyfill'
-import '@formatjs/intl-numberformat/locale-data/vi'
-import 'intersection-observer'
-
-import ResizeObserver from 'resize-observer-polyfill'
-
-if (!window.ResizeObserver) {
-  window.ResizeObserver = ResizeObserver
-}
+// Polyfills intentionally minimal for the new chat app.
+// (Previous ZaUI menu template polyfills were removed because their
+// packages are not in package.json and the new app does not need them.)
+export {}

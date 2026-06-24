@@ -35,6 +35,6 @@ describe('LocalBankProvider', () => {
 
   it('explain is not implemented', () => {
     const p = new LocalBankProvider(sample);
-    expect(p.explain).toBeUndefined();
+    expect((p as unknown as { explain?: unknown }).explain).toBeUndefined();
   });
 });
