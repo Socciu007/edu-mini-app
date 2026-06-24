@@ -1,0 +1,72 @@
+[
+  {
+    "id": "math-001", "subject": "math",
+    "prompt": { "vi": "Giải phương trình $2x + 5 = 13$.", "en": "Solve $2x + 5 = 13$." },
+    "choices": ["x = 3", "x = 4", "x = 5", "x = 6"], "answer": "x = 4",
+    "explanation": { "vi": "Trừ 5 cả hai vế: $2x = 8$. Chia 2: $x = 4$.", "en": "Subtract 5: $2x = 8$. Divide by 2: $x = 4$." },
+    "difficulty": "easy", "tags": ["algebra", "linear"]
+  },
+  {
+    "id": "math-002", "subject": "math",
+    "prompt": { "vi": "Tính $\\sqrt{144}$.", "en": "Compute $\\sqrt{144}$." },
+    "choices": ["10", "11", "12", "14"], "answer": "12",
+    "explanation": { "vi": "$12^2 = 144$.", "en": "$12^2 = 144$." },
+    "difficulty": "easy", "tags": ["arithmetic"]
+  },
+  {
+    "id": "math-003", "subject": "math",
+    "prompt": { "vi": "Phân số $\\frac{3}{4} + \\frac{1}{2}$ bằng?", "en": "What is $\\frac{3}{4} + \\frac{1}{2}$?" },
+    "choices": ["$\\frac{4}{6}$", "$\\frac{5}{4}$", "$\\frac{7}{4}$", "$\\frac{2}{3}$"], "answer": "$\\frac{5}{4}$",
+    "explanation": { "vi": "$\\frac{1}{2} = \\frac{2}{4}$, cộng: $\\frac{5}{4}$.", "en": "$\\frac{1}{2} = \\frac{2}{4}$, sum: $\\frac{5}{4}$." },
+    "difficulty": "easy", "tags": ["fractions"]
+  },
+  {
+    "id": "math-004", "subject": "math",
+    "prompt": { "vi": "Nghiệm của $x^2 - 5x + 6 = 0$?", "en": "Solve $x^2 - 5x + 6 = 0$." },
+    "choices": ["x = 1, 6", "x = 2, 3", "x = -2, -3", "x = 0, 5"], "answer": "x = 2, 3",
+    "explanation": { "vi": "Phân tích: $(x-2)(x-3) = 0$.", "en": "Factor: $(x-2)(x-3) = 0$." },
+    "difficulty": "medium", "tags": ["algebra", "quadratic"]
+  },
+  {
+    "id": "math-005", "subject": "math",
+    "prompt": { "vi": "Đạo hàm $f(x) = 3x^2$ là?", "en": "Derivative of $f(x) = 3x^2$?" },
+    "choices": ["$3x$", "$6x$", "$6$", "$9x^2$"], "answer": "$6x$",
+    "explanation": { "vi": "$(x^n)' = nx^{n-1}$, áp dụng: $6x$.", "en": "Power rule: $6x$." },
+    "difficulty": "medium", "tags": ["calculus", "derivative"]
+  },
+  {
+    "id": "math-006", "subject": "math",
+    "prompt": { "vi": "$\\log_{10}(1000)$ bằng?", "en": "$\\log_{10}(1000)$ equals?" },
+    "choices": ["2", "3", "4", "10"], "answer": "3",
+    "explanation": { "vi": "$10^3 = 1000$.", "en": "$10^3 = 1000$." },
+    "difficulty": "medium", "tags": ["logarithm"]
+  },
+  {
+    "id": "math-007", "subject": "math",
+    "prompt": { "vi": "Diện tích hình tròn bán kính $r = 5$?", "en": "Area of a circle with $r = 5$?" },
+    "choices": ["$10\\pi$", "$25\\pi$", "$50\\pi$", "$5\\pi$"], "answer": "$25\\pi$",
+    "explanation": { "vi": "$A = \\pi r^2 = 25\\pi$.", "en": "$A = \\pi r^2 = 25\\pi$." },
+    "difficulty": "easy", "tags": ["geometry"]
+  },
+  {
+    "id": "math-008", "subject": "math",
+    "prompt": { "vi": "Tích phân $\\int_0^1 2x\\,dx$?", "en": "$\\int_0^1 2x\\,dx$?" },
+    "choices": ["0", "1", "2", "$\\frac{1}{2}$"], "answer": "1",
+    "explanation": { "vi": "$[x^2]_0^1 = 1$.", "en": "$[x^2]_0^1 = 1$." },
+    "difficulty": "hard", "tags": ["calculus", "integral"]
+  },
+  {
+    "id": "math-009", "subject": "math",
+    "prompt": { "vi": "Số nào là số nguyên tố?", "en": "Which is a prime number?" },
+    "choices": ["9", "15", "17", "21"], "answer": "17",
+    "explanation": { "vi": "17 chỉ chia hết cho 1 và 17.", "en": "17 is only divisible by 1 and 17." },
+    "difficulty": "easy", "tags": ["number-theory"]
+  },
+  {
+    "id": "math-010", "subject": "math",
+    "prompt": { "vi": "$\\sin(30°)$ bằng?", "en": "$\\sin(30°)$ equals?" },
+    "choices": ["$\\frac{1}{2}$", "$\\frac{\\sqrt{2}}{2}$", "$\\frac{\\sqrt{3}}{2}$", "$1$"], "answer": "$\\frac{1}{2}$",
+    "explanation": { "vi": "Giá trị đặc biệt.", "en": "Standard value." },
+    "difficulty": "medium", "tags": ["trigonometry"]
+  }
+]
