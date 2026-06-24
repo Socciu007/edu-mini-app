@@ -3,17 +3,13 @@ import React, { Suspense } from 'react'
 import { Route } from 'react-router-dom'
 import { AnimationRoutes, App, SnackbarProvider, ZMPRouter } from 'zmp-ui'
 
-import { RootProvider } from './components'
-import MerchantInfoPage from './pages/info'
-import MerchantRootPage from './pages/menu'
-import MerchantOrdersPage from './pages/orders'
-import MerchantOrdersViewPage from './pages/orders.view'
+import HomePage from './pages/home'
+import ChatPage from './pages/chat'
+import SettingsPage from './pages/settings'
 
 const queryClient = new QueryClient({
   defaultOptions: {
-    queries: {
-      retry: 2,
-    },
+    queries: { retry: 2 },
   },
 })
 
@@ -23,16 +19,13 @@ const MyApp = () => {
       <Suspense>
         <QueryClientProvider client={queryClient}>
           <SnackbarProvider>
-            <RootProvider>
-              <ZMPRouter>
-                <AnimationRoutes>
-                  <Route path="/" element={<MerchantRootPage />} />
-                  <Route path="/orders" element={<MerchantOrdersPage />} />
-                  <Route path="/orders/view" element={<MerchantOrdersViewPage />} />
-                  <Route path="/info" element={<MerchantInfoPage />} />
-                </AnimationRoutes>
-              </ZMPRouter>
-            </RootProvider>
+            <ZMPRouter>
+              <AnimationRoutes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/chat" element={<ChatPage />} />
+                <Route path="/settings" element={<SettingsPage />} />
+              </AnimationRoutes>
+            </ZMPRouter>
           </SnackbarProvider>
         </QueryClientProvider>
       </Suspense>
