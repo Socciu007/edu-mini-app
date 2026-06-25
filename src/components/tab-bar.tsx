@@ -1,11 +1,12 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-import { useTranslation } from '../i18n/use-translation'
 import ChatIcon from '@/static/icons/chat.svg?react'
-import SurveyIcon from '@/static/icons/survey.svg?react'
 import ReviewIcon from '@/static/icons/review.svg?react'
+import SurveyIcon from '@/static/icons/survey.svg?react'
 import UserIcon from '@/static/icons/user.svg?react'
+
+import { useTranslation } from '../i18n/use-translation'
 
 interface TabDef {
   to: string
@@ -34,7 +35,7 @@ export function TabBar() {
           to={tab.to}
           end={tab.to === '/'}
           className={({ isActive }) =>
-            `tab-item flex flex-col items-center justify-center flex-1 py-2 text-xs ${
+            `tab-item flex flex-col no-underline items-center justify-center flex-1 py-2 text-xs ${
               isActive ? 'text-blue-500 font-semibold is-active' : 'text-gray-500 font-normal'
             }`
           }
