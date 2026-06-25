@@ -4,6 +4,7 @@ import { useSettingsStore } from '../stores/settings-store';
 import { useChatStore } from '../stores/chat-store';
 import { useTranslation } from '../i18n/use-translation';
 import { LanguageToggle } from '../components/language-toggle';
+import { PageHeader } from '../components/page-header';
 
 export default function UserPage() {
   const { t } = useTranslation();
@@ -14,12 +15,9 @@ export default function UserPage() {
   const aiReady = Boolean(import.meta.env.VITE_AI_API_KEY);
 
   return (
-    <div className="min-h-screen p-4">
-      <div className="flex items-center mb-6">
-        <button onClick={() => nav(-1)} className="text-sm text-gray-600 mr-4">←</button>
-        <h1 className="text-lg font-bold">{t('user.title')}</h1>
-      </div>
-
+    <div className="min-h-screen pb-16">
+      <PageHeader title={`👤 ${t('user.title')}`} onBack={() => nav('/')} />
+      <div className="p-4">
       <section className="mb-6">
         <h2 className="text-sm font-medium text-gray-700 mb-2">{t('user.language')}</h2>
         <LanguageToggle />
@@ -58,6 +56,7 @@ export default function UserPage() {
       >
         {t('user.reset')}
       </button>
+      </div>
     </div>
   );
 }
