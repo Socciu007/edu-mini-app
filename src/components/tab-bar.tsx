@@ -2,18 +2,22 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 
 import { useTranslation } from '../i18n/use-translation'
+import ChatIcon from '@/static/icons/chat.svg?react'
+import SurveyIcon from '@/static/icons/survey.svg?react'
+import ReviewIcon from '@/static/icons/review.svg?react'
+import UserIcon from '@/static/icons/user.svg?react'
 
 interface TabDef {
   to: string
-  emoji: string
+  Icon: React.FC<React.SVGProps<SVGSVGElement>>
   labelKey: 'chat' | 'survey' | 'review' | 'user'
 }
 
 const TABS: TabDef[] = [
-  { to: '/', emoji: '💬', labelKey: 'chat' },
-  { to: '/survey', emoji: '📝', labelKey: 'survey' },
-  { to: '/review', emoji: '📊', labelKey: 'review' },
-  { to: '/user', emoji: '👤', labelKey: 'user' },
+  { to: '/', Icon: ChatIcon, labelKey: 'chat' },
+  { to: '/survey', Icon: SurveyIcon, labelKey: 'survey' },
+  { to: '/review', Icon: ReviewIcon, labelKey: 'review' },
+  { to: '/user', Icon: UserIcon, labelKey: 'user' },
 ]
 
 export function TabBar() {
@@ -30,16 +34,14 @@ export function TabBar() {
           to={tab.to}
           end={tab.to === '/'}
           className={({ isActive }) =>
-            `tab-item no-underline flex flex-col items-center justify-center flex-1 py-2 text-xs ${
+            `tab-item flex flex-col items-center justify-center flex-1 py-2 text-xs ${
               isActive ? 'text-blue-500 font-semibold is-active' : 'text-gray-500 font-normal'
             }`
           }
         >
           {({ isActive }) => (
             <>
-              <span className="text-xl leading-none mb-1" aria-hidden="true">
-                {tab.emoji}
-              </span>
+              <tab.Icon className="w-5 h-5 mb-1" aria-hidden="true" />
               {!isActive && <span>{t(`tabs.${tab.labelKey}`)}</span>}
             </>
           )}
