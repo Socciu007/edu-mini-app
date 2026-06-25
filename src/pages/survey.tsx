@@ -4,6 +4,8 @@ import { ALL_QUESTIONS } from '../data/questions';
 import { KatexRenderer } from '../components/katex-renderer';
 import { PageHeader } from '../components/page-header';
 import { useTranslation } from '../i18n/use-translation';
+import CheckIcon from '@/static/icons/check.svg?react';
+import XIcon from '@/static/icons/x.svg?react';
 import type { Question } from '../providers/types';
 
 const QUESTION_COUNT = 5;
@@ -130,9 +132,13 @@ export default function SurveyPage() {
                 <div className="flex-1 mr-2 text-sm">
                   <KatexRenderer>{q.prompt.vi}</KatexRenderer>
                 </div>
-                <span className="text-lg">
-                  {state.answers[i] === true ? '✅' : state.answers[i] === false ? '❌' : '⏭️'}
-                </span>
+                {state.answers[i] === true ? (
+                  <CheckIcon className="w-5 h-5 text-green-600" aria-label="Correct" />
+                ) : state.answers[i] === false ? (
+                  <XIcon className="w-5 h-5 text-red-600" aria-label="Incorrect" />
+                ) : (
+                  <span className="text-gray-400 text-lg">—</span>
+                )}
               </div>
             ))}
           </div>
