@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import ArrowLeft from '@/static/icons/arrow-left-circle.svg?react';
 
 interface Props {
   title: string;
@@ -16,10 +17,10 @@ export function PageHeader({ title, onBack, right }: Props) {
       {showBack ? (
         <button
           onClick={handleBack}
-          className="text-sm text-gray-600 no-underline w-16 text-left"
+          className="w-16 text-left flex items-center gap-1"
           aria-label="Back"
         >
-          ← Quay lại
+          <ArrowLeft className="w-4 h-4 text-gray-600" />
         </button>
       ) : (
         <div className="w-16" />
