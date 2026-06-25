@@ -1,16 +1,14 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { routeMessage, type RouterContext } from '../services/chat';
-import type { ChatMessage, Question, SubjectId } from '../providers/types';
+import type { ChatMessage, Question } from '../providers/types';
 import { useSettingsStore } from './settings-store';
 
 interface ChatState {
   messages: ChatMessage[];
-  activeSubject?: SubjectId;
   recentQuestionIds: string[];
   stats: { asked: number; correct: number };
 
-  setActiveSubject: (s: SubjectId | undefined) => void;
   reset: () => void;
   sendUserMessage: (text: string, runner?: typeof routeMessage) => Promise<void>;
 }
@@ -31,11 +29,8 @@ export const useChatStore = create<ChatState>()(
   persist(
     (set, get) => ({
       messages: [],
-      activeSubject: undefined,
       recentQuestionIds: [],
       stats: { asked: 0, correct: 0 },
-
-      setActiveSubject: (s) => set({ activeSubject: s }),
 
       reset: () => set({ messages: [], recentQuestionIds: [], stats: { asked: 0, correct: 0 } }),
 
@@ -54,7 +49,6 @@ export const useChatStore = create<ChatState>()(
         const lastQuestion = lastBot?.questionRef ? questionCache.get(lastBot.questionRef) : undefined;
 
         const ctx: RouterContext = {
-          activeSubject: state.activeSubject,
           history: state.messages,
           recentIds: state.recentQuestionIds,
           lastQuestion,
@@ -92,7 +86,6 @@ export const useChatStore = create<ChatState>()(
       name: 'edu-chat-v1',
       partialize: (s) => ({
         messages: s.messages,
-        activeSubject: s.activeSubject,
         recentQuestionIds: s.recentQuestionIds,
         stats: s.stats,
       }),

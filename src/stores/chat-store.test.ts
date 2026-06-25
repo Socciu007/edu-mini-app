@@ -8,18 +8,13 @@ const fakeRunner = async () => ({
 
 describe('chat-store', () => {
   beforeEach(() => {
-    useChatStore.setState({ messages: [], activeSubject: undefined, recentQuestionIds: [], stats: { asked: 0, correct: 0 } });
+    useChatStore.setState({ messages: [], recentQuestionIds: [], stats: { asked: 0, correct: 0 } });
   });
 
   it('resets the conversation', () => {
     useChatStore.setState({ messages: [{ id: 'x', role: 'user', content: 'a', createdAt: 0 }] });
     useChatStore.getState().reset();
     expect(useChatStore.getState().messages).toEqual([]);
-  });
-
-  it('sets active subject', () => {
-    useChatStore.getState().setActiveSubject('physics');
-    expect(useChatStore.getState().activeSubject).toBe('physics');
   });
 
   it('sendUserMessage appends user and bot messages', async () => {
@@ -41,5 +36,17 @@ describe('chat-store', () => {
     const s = useChatStore.getState().stats;
     expect(s.asked).toBe(1);
     expect(s.correct).toBe(1);
+  });
+
+  it('sendUserMessage calls runner with no activeSubject in ctx', async () => {
+    let capturedCtx: any = null;
+    const runner = async (_text: string, ctx: any) => {
+      capturedCtx = ctx;
+      return { messages: [{ id: 'b1', role: 'bot' as const, content: 'hi', createdAt: 1 }] };
+    };
+    await useChatStore.getState().sendUserMessage('hi', runner as any);
+    expect(capturedCtx.activeSubject).toBeUndefined();
+    expect(capturedCtx.history).toBeDefined();
+    expect(capturedCtx.recentIds).toBeDefined();
   });
 });
