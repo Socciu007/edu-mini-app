@@ -81,4 +81,22 @@ export class AIProvider implements QuestionProvider {
     const { text: body } = extractJson<{ text: string }>(text);
     return body;
   }
+
+  async detectSubject(text: string, history: ChatMessage[]): Promise<SubjectId | null> {
+    try {
+      const userPrompt = `Detect which subject this question belongs to. Subjects: math, physics, chemistry, english. Respond with JSON {"subject":"<id>|null","reasoning":"<one sentence>"}. User text: ${JSON.stringify(text)}`;
+      const messages: ChatMsg[] = [
+        { role: 'system', content: SYSTEM_PROMPT },
+        ...history.slice(-4).map<ChatMsg>((m) => ({ role: m.role === 'user' ? 'user' : 'assistant', content: m.content })),
+        { role: 'user', content: userPrompt },
+      ];
+      const responseText = await callAI(messages);
+      const parsed = extractJson<{ subject: string | null }>(responseText);
+      const s = parsed.subject;
+      if (s === 'math' || s === 'physics' || s === 'chemistry' || s === 'english') return s;
+      return null;
+    } catch {
+      return null;
+    }
+  }
 }

@@ -62,4 +62,29 @@ describe('AIProvider', () => {
     expect(res.correct).toBe(true);
     expect(res.feedback).toBe('Good');
   });
+
+  it('detectSubject returns subject from JSON response', async () => {
+    global.fetch = mockFetchOk({
+      choices: [{ message: { content: JSON.stringify({ subject: 'physics', reasoning: 'mentions gravity' }) } }],
+    });
+    const p = new AIProvider();
+    const result = await p.detectSubject('What is gravity?', []);
+    expect(result).toBe('physics');
+  });
+
+  it('detectSubject returns null when AI cannot determine', async () => {
+    global.fetch = mockFetchOk({
+      choices: [{ message: { content: JSON.stringify({ subject: null, reasoning: 'unclear' }) } }],
+    });
+    const p = new AIProvider();
+    const result = await p.detectSubject('hello there', []);
+    expect(result).toBeNull();
+  });
+
+  it('detectSubject returns null when API throws', async () => {
+    global.fetch = mockFetchFail(500);
+    const p = new AIProvider();
+    const result = await p.detectSubject('any text', []);
+    expect(result).toBeNull();
+  });
 });
