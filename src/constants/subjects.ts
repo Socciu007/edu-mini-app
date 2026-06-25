@@ -11,3 +11,8 @@ export const SUBJECT_BY_ID: Record<SubjectId, Subject> = SUBJECTS.reduce((acc, s
   acc[s.id] = s;
   return acc;
 }, {} as Record<SubjectId, Subject>);
+
+export function pickRandomSubject(): SubjectId {
+  const ids: SubjectId[] = ['math', 'physics', 'chemistry', 'english'];
+  return ids[Math.floor(Math.random() * ids.length)];
+}
