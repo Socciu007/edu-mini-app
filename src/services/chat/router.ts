@@ -1,6 +1,6 @@
 import { detectIntent } from './intents';
 import { getProvider, hasAiConfig, localProvider } from '../../providers';
-import { SUBJECT_BY_ID } from '../../constants/subjects';
+import { SUBJECT_BY_ID, pickRandomSubject } from '../../constants/subjects';
 import { rememberQuestion } from '../../stores/chat-store';
 import type { ChatMessage, Intent, Question, SubjectId } from '../../providers/types';
 import { log } from '../../utils/log';
@@ -58,10 +58,19 @@ export async function routeMessage(
   const t0 = Date.now();
   const intent: Intent = detectIntent(userText, ctx);
   log.info('intent', intent.kind, 'lang', lang);
-  const subject = (intent.kind === 'request_question' && intent.subject) || ctx.activeSubject || 'math';
-  const subj = SUBJECT_BY_ID[subject];
 
   if (intent.kind === 'request_question') {
+    let subject = intent.subject;
+
+    if (!subject && hasAiConfig()) {
+      try {
+        subject = (await getProvider('ai').detectSubject(userText, ctx.history)) ?? undefined;
+      } catch {
+        subject = undefined;
+      }
+    }
+    if (!subject) subject = pickRandomSubject();
+
     let q: Question;
     try {
       q = await localProvider.getQuestion({ subject, excludeIds: ctx.recentIds });

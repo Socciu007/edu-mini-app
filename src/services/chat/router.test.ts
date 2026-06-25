@@ -16,7 +16,7 @@ describe('routeMessage', () => {
 
   it('returns a question for request_question from local bank', async () => {
     const out = await routeMessage('Cho tôi câu hỏi Toán', {
-      activeSubject: 'math', history: [], recentIds: [],
+      history: [], recentIds: [],
     });
     expect(out.messages).toHaveLength(1);
     expect(out.messages[0].role).toBe('bot');
@@ -56,5 +56,15 @@ describe('routeMessage', () => {
     // chitchat with no AI → canned string
     expect(out.messages[0].role).toBe('bot');
     expect(out.messages[0].content.length).toBeGreaterThan(0);
+  });
+
+  it('falls back to a random subject when no subject provided and no AI', async () => {
+    const out = await routeMessage('Cho tôi câu hỏi', {
+      history: [], recentIds: [],
+    });
+    expect(out.messages).toHaveLength(1);
+    expect(out.messages[0].questionRef).toBeDefined();
+    const validPrefixes = ['math-', 'phys-', 'chem-', 'eng-'];
+    expect(validPrefixes.some(p => out.messages[0].questionRef!.startsWith(p))).toBe(true);
   });
 });
