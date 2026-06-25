@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ALL_QUESTIONS } from '../data/questions';
 import { KatexRenderer } from '../components/katex-renderer';
+import { PageHeader } from '../components/page-header';
 import { useTranslation } from '../i18n/use-translation';
 import type { Question } from '../providers/types';
 
@@ -97,16 +98,19 @@ export default function SurveyPage() {
   // Render
   if (state.kind === 'idle') {
     return (
-      <div className="min-h-screen p-6 flex flex-col items-center justify-center text-center">
-        <div className="text-5xl mb-4">📝</div>
-        <h1 className="text-xl font-bold mb-2">{t('survey.title')}</h1>
-        <p className="text-gray-500 mb-8">{t('survey.description')}</p>
-        <button
-          onClick={handleStart}
-          className="rounded-full bg-blue-500 text-white px-8 py-3 text-sm font-medium"
-        >
-          {t('survey.start')}
-        </button>
+      <div className="min-h-screen pb-16">
+        <PageHeader title={`📝 ${t('survey.title')}`} onBack={() => nav('/')} />
+        <div className="p-6 flex flex-col items-center justify-center text-center">
+          <div className="text-5xl mb-4">📝</div>
+          <h1 className="text-xl font-bold mb-2">{t('survey.title')}</h1>
+          <p className="text-gray-500 mb-8">{t('survey.description')}</p>
+          <button
+            onClick={handleStart}
+            className="rounded-full bg-blue-500 text-white px-8 py-3 text-sm font-medium"
+          >
+            {t('survey.start')}
+          </button>
+        </div>
       </div>
     );
   }
@@ -114,35 +118,38 @@ export default function SurveyPage() {
   if (state.kind === 'finished') {
     const correctCount = state.answers.filter((a) => a === true).length;
     return (
-      <div className="min-h-screen p-6 flex flex-col items-center justify-center text-center">
-        <div className="text-5xl mb-4">🏁</div>
-        <h1 className="text-xl font-bold mb-4">{t('survey.scoreTitle')}</h1>
-        <p className="text-2xl mb-6">{t('survey.score', { correct: correctCount, total: state.questions.length })}</p>
-        <div className="space-y-2 mb-8 w-full max-w-md">
-          {state.questions.map((q, i) => (
-            <div key={q.id} className="flex items-center justify-between border-b border-gray-100 py-2 text-left">
-              <div className="flex-1 mr-2 text-sm">
-                <KatexRenderer>{q.prompt.vi}</KatexRenderer>
+      <div className="min-h-screen pb-16 flex flex-col items-center justify-center text-center">
+        <PageHeader title={`📝 ${t('survey.title')}`} onBack={() => nav('/')} />
+        <div className="flex-1 p-6 flex flex-col items-center justify-center">
+          <div className="text-5xl mb-4">🏁</div>
+          <h1 className="text-xl font-bold mb-4">{t('survey.scoreTitle')}</h1>
+          <p className="text-2xl mb-6">{t('survey.score', { correct: correctCount, total: state.questions.length })}</p>
+          <div className="space-y-2 mb-8 w-full max-w-md">
+            {state.questions.map((q, i) => (
+              <div key={q.id} className="flex items-center justify-between border-b border-gray-100 py-2 text-left">
+                <div className="flex-1 mr-2 text-sm">
+                  <KatexRenderer>{q.prompt.vi}</KatexRenderer>
+                </div>
+                <span className="text-lg">
+                  {state.answers[i] === true ? '✅' : state.answers[i] === false ? '❌' : '⏭️'}
+                </span>
               </div>
-              <span className="text-lg">
-                {state.answers[i] === true ? '✅' : state.answers[i] === false ? '❌' : '⏭️'}
-              </span>
-            </div>
-          ))}
-        </div>
-        <div className="flex gap-3">
-          <button
-            onClick={handleRetry}
-            className="rounded-full bg-blue-500 text-white px-6 py-2 text-sm font-medium"
-          >
-            {t('survey.retry')}
-          </button>
-          <button
-            onClick={() => nav('/')}
-            className="rounded-full border border-gray-300 text-gray-700 px-6 py-2 text-sm font-medium"
-          >
-            {t('survey.backToChat')}
-          </button>
+            ))}
+          </div>
+          <div className="flex gap-3">
+            <button
+              onClick={handleRetry}
+              className="rounded-full bg-blue-500 text-white px-6 py-2 text-sm font-medium"
+            >
+              {t('survey.retry')}
+            </button>
+            <button
+              onClick={() => nav('/')}
+              className="rounded-full border border-gray-300 text-gray-700 px-6 py-2 text-sm font-medium"
+            >
+              {t('survey.backToChat')}
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -151,38 +158,41 @@ export default function SurveyPage() {
   // playing
   const q = state.questions[state.currentIdx];
   return (
-    <div className="min-h-screen p-4 flex flex-col">
-      <div className="flex items-center justify-between mb-4">
-        <span className="text-sm text-gray-600">
-          {t('survey.progress', { current: state.currentIdx + 1, total: state.questions.length })}
-        </span>
-        <span className={`text-sm font-mono ${state.secondsLeft <= 10 ? 'text-red-500' : 'text-gray-700'}`}>
-          {t('survey.timeLeft', { seconds: state.secondsLeft })}
-        </span>
-      </div>
-      <div className="flex-1">
-        <div className="text-base mb-6">
-          <KatexRenderer>{q.prompt.vi}</KatexRenderer>
+    <div className="min-h-screen pb-16 flex flex-col">
+      <PageHeader title={`📝 ${t('survey.title')}`} onBack={() => nav('/')} />
+      <div className="flex-1 p-4 flex flex-col">
+        <div className="flex items-center justify-between mb-4">
+          <span className="text-sm text-gray-600">
+            {t('survey.progress', { current: state.currentIdx + 1, total: state.questions.length })}
+          </span>
+          <span className={`text-sm font-mono ${state.secondsLeft <= 10 ? 'text-red-500' : 'text-gray-700'}`}>
+            {t('survey.timeLeft', { seconds: state.secondsLeft })}
+          </span>
         </div>
-        <div className="space-y-2">
-          {(q.choices || []).map((choice, idx) => (
-            <button
-              key={idx}
-              onClick={() => handleChoice(idx, q)}
-              className="w-full text-left rounded-lg border border-gray-300 px-4 py-3 text-sm hover:bg-gray-50"
-            >
-              {String.fromCharCode(65 + idx)}. {choice}
-            </button>
-          ))}
+        <div className="flex-1">
+          <div className="text-base mb-6">
+            <KatexRenderer>{q.prompt.vi}</KatexRenderer>
+          </div>
+          <div className="space-y-2">
+            {(q.choices || []).map((choice, idx) => (
+              <button
+                key={idx}
+                onClick={() => handleChoice(idx, q)}
+                className="w-full text-left rounded-lg border border-gray-300 px-4 py-3 text-sm hover:bg-gray-50"
+              >
+                {String.fromCharCode(65 + idx)}. {choice}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="text-center mt-4">
-        <button
-          onClick={handleSkip}
-          className="text-xs text-gray-500 underline"
-        >
-          {t('survey.skip')}
-        </button>
+        <div className="text-center mt-4">
+          <button
+            onClick={handleSkip}
+            className="text-xs text-gray-500 underline"
+          >
+            {t('survey.skip')}
+          </button>
+        </div>
       </div>
     </div>
   );
