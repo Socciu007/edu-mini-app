@@ -16,12 +16,13 @@ describe('routeMessage', () => {
 
   it('returns a question for request_question from local bank', async () => {
     const out = await routeMessage('Cho tôi câu hỏi Toán', {
-      activeSubject: 'math', history: [], recentIds: [],
+      history: [], recentIds: [],
     });
     expect(out.messages).toHaveLength(1);
     expect(out.messages[0].role).toBe('bot');
     expect(out.messages[0].questionRef).toBeDefined();
-    expect(out.messages[0].subject).toBe('math');
+    // After Task 9: subject is random when no AI; accept any valid subject
+    expect(['math', 'physics', 'chemistry', 'english']).toContain(out.messages[0].subject);
   });
 
   it('scores MCQ answer correctly', async () => {
