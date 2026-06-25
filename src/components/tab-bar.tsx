@@ -20,7 +20,7 @@ export function TabBar() {
   const { t } = useTranslation()
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around pb-[env(safe-area-inset-bottom)] z-50"
+      className="fixed bottom-0 left-0 right-0 bg-white border-gray-200 flex justify-around pb-[env(safe-area-inset-bottom)] z-50"
       role="navigation"
       aria-label="Main"
     >
@@ -30,15 +30,19 @@ export function TabBar() {
           to={tab.to}
           end={tab.to === '/'}
           className={({ isActive }) =>
-            `tab-item flex flex-col items-center justify-center flex-1 py-2 text-xs ${
+            `tab-item no-underline flex flex-col items-center justify-center flex-1 py-2 text-xs ${
               isActive ? 'text-blue-500 font-semibold is-active' : 'text-gray-500 font-normal'
             }`
           }
         >
-          <span className="text-xl leading-none mb-1" aria-hidden="true">
-            {tab.emoji}
-          </span>
-          <span>{t(`tabs.${tab.labelKey}`)}</span>
+          {({ isActive }) => (
+            <>
+              <span className="text-xl leading-none mb-1" aria-hidden="true">
+                {tab.emoji}
+              </span>
+              {!isActive && <span>{t(`tabs.${tab.labelKey}`)}</span>}
+            </>
+          )}
         </NavLink>
       ))}
     </nav>

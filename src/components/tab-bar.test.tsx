@@ -19,18 +19,19 @@ describe('TabBar', () => {
     useSettingsStore.setState({ language: 'vi' });
   });
 
-  it('renders all 4 tab labels in Vietnamese by default', () => {
+  it('hides the active tab label and shows the others', () => {
+    // On `/`, the Chat tab is active — its label should be hidden
     renderAt('/');
-    expect(screen.getByText('Chat')).toBeInTheDocument();
+    expect(screen.queryByText('Chat')).not.toBeInTheDocument();
     expect(screen.getByText('Khảo sát')).toBeInTheDocument();
     expect(screen.getByText('Review')).toBeInTheDocument();
     expect(screen.getByText('Cá nhân')).toBeInTheDocument();
   });
 
-  it('renders English labels when language is en', () => {
+  it('renders English labels on inactive tabs', () => {
     useSettingsStore.setState({ language: 'en' });
-    renderAt('/');
-    expect(screen.getByText('Chat')).toBeInTheDocument();
+    renderAt('/'); // Chat tab active — hidden
+    expect(screen.queryByText('Chat')).not.toBeInTheDocument();
     expect(screen.getByText('Survey')).toBeInTheDocument();
     expect(screen.getByText('Review')).toBeInTheDocument();
     expect(screen.getByText('Profile')).toBeInTheDocument();
@@ -38,8 +39,12 @@ describe('TabBar', () => {
 
   it('marks the matching tab as active via aria-current', () => {
     renderAt('/survey');
-    const surveyLink = screen.getByText('Khảo sát').closest('a');
+    // Khảo sát label is hidden because survey tab is active — check via emoji link instead
+    const links = screen.getAllByRole('link');
+    const surveyLink = links.find((a) => a.getAttribute('href') === '/survey');
     expect(surveyLink?.getAttribute('aria-current')).toBe('page');
+    // And the inactive Chat tab label IS shown
+    expect(screen.getByText('Chat')).toBeInTheDocument();
   });
 
   it('root tab is only active when on /', () => {
@@ -48,7 +53,8 @@ describe('TabBar', () => {
         <TabBar />
       </MemoryRouter>,
     );
-    let chatLink = screen.getByText('Chat').closest('a');
+    let links = screen.getAllByRole('link');
+    let chatLink = links.find((a) => a.getAttribute('href') === '/');
     expect(chatLink?.getAttribute('aria-current')).toBe('page');
     unmount();
 
@@ -57,7 +63,8 @@ describe('TabBar', () => {
         <TabBar />
       </MemoryRouter>,
     );
-    chatLink = screen.getByText('Chat').closest('a');
+    links = screen.getAllByRole('link');
+    chatLink = links.find((a) => a.getAttribute('href') === '/');
     expect(chatLink?.getAttribute('aria-current')).toBeNull();
   });
 });

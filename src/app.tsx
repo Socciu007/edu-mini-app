@@ -3,11 +3,11 @@ import React, { Suspense } from 'react'
 import { Outlet, Route } from 'react-router-dom'
 import { AnimationRoutes, App, SnackbarProvider, ZMPRouter } from 'zmp-ui'
 
-import ChatPage from './pages/chat'
-import SurveyPage from './pages/survey'
-import ReviewPage from './pages/review'
-import UserPage from './pages/user'
 import { TabBar } from './components/tab-bar'
+import ChatPage from './pages/chat'
+import ReviewPage from './pages/review'
+import SurveyPage from './pages/survey'
+import UserPage from './pages/user'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,7 +21,7 @@ function ShellLayout() {
       <Outlet />
       <TabBar />
     </div>
-  );
+  )
 }
 
 const MyApp = () => {
