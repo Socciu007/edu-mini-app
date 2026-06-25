@@ -64,7 +64,10 @@ export async function routeMessage(
 
     if (!subject && hasAiConfig()) {
       try {
-        subject = (await getProvider('ai').detectSubject(userText, ctx.history)) ?? undefined;
+        const ai = getProvider('ai');
+        if (ai.detectSubject) {
+          subject = (await ai.detectSubject(userText, ctx.history)) ?? undefined;
+        }
       } catch {
         subject = undefined;
       }

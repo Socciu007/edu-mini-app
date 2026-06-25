@@ -43,4 +43,5 @@ export interface QuestionProvider {
   explain?(q: Question, mode?: 'explain' | 'hint'): Promise<string>;
   evaluateAnswer?(q: Question, userAnswer: string): Promise<{ correct: boolean; feedback: string }>;
   chat?(userText: string, history: ChatMessage[]): Promise<string>;
+  detectSubject?(text: string, history: ChatMessage[]): Promise<SubjectId | null>;
 }
