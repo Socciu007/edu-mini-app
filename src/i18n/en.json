@@ -11,13 +11,13 @@
     "settings": "Settings",
     "back": "Back",
     "empty": "Pick a subject and let's go!",
-    "changeSubject": "Change subject",
     "starterPrompts": [
       "Give me a math question",
       "Explain photosynthesis",
       "Chemistry basics",
       "English grammar"
-    ]
+    ],
+    "aiNotConfiguredRandom": "AI is not configured. Questions will be random from the local bank."
   },
   "subjects": {
     "math": "Math",
@@ -32,6 +32,7 @@
     "user": "Profile"
   },
   "survey": {
+    "headerTitle": "Survey",
     "title": "Quick survey",
     "description": "Answer 5 random questions. 30 seconds each.",
     "start": "Start",
@@ -46,6 +47,7 @@
     "backToChat": "Back to Chat"
   },
   "review": {
+    "headerTitle": "Review",
     "title": "Review",
     "stats": "Overview",
     "asked": "Attempted",
@@ -55,6 +57,7 @@
     "empty": "No conversations yet. Start from the Chat tab!"
   },
   "user": {
+    "headerTitle": "Profile",
     "title": "Profile",
     "language": "Language",
     "languageVi": "Tiếng Việt",

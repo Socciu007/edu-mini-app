@@ -11,13 +11,13 @@
     "settings": "Cài đặt",
     "back": "Quay lại",
     "empty": "Hãy chọn môn học và bắt đầu!",
-    "changeSubject": "Đổi môn",
     "starterPrompts": [
       "Cho tôi câu hỏi Toán",
       "Explain photosynthesis",
       "Hóa học lớp 10",
       "Tiếng Anh ngữ pháp"
-    ]
+    ],
+    "aiNotConfiguredRandom": "AI chưa được cấu hình. Câu hỏi sẽ random từ ngân hàng cục bộ."
   },
   "subjects": {
     "math": "Toán",
@@ -32,6 +32,7 @@
     "user": "Cá nhân"
   },
   "survey": {
+    "headerTitle": "Khảo sát",
     "title": "Khảo sát nhanh",
     "description": "Trả lời 5 câu hỏi ngẫu nhiên. Mỗi câu có 30 giây.",
     "start": "Bắt đầu",
@@ -46,6 +47,7 @@
     "backToChat": "Về Chat"
   },
   "review": {
+    "headerTitle": "Review",
     "title": "Review",
     "stats": "Tổng quan",
     "asked": "Đã làm",
@@ -55,6 +57,7 @@
     "empty": "Bạn chưa có cuộc trò chuyện nào. Hãy bắt đầu từ tab Chat!"
   },
   "user": {
+    "headerTitle": "Cá nhân",
     "title": "Cá nhân",
     "language": "Ngôn ngữ",
     "languageVi": "Tiếng Việt",
