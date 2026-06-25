@@ -1,7 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useChatStore } from '../stores/chat-store';
 import { MessageBubble } from '../components/chat/message-bubble';
 import { useTranslation } from '../i18n/use-translation';
+import { PageHeader } from '../components/page-header';
 
 function formatRelative(ts: number, lang: 'vi' | 'en'): string {
   const diff = Date.now() - ts;
@@ -22,12 +24,11 @@ export default function ReviewPage() {
   const asked = useChatStore((s) => s.stats.asked);
   const correct = useChatStore((s) => s.stats.correct);
   const accuracy = asked > 0 ? `${Math.round((correct / asked) * 100)}%` : '—';
+  const nav = useNavigate();
 
   return (
     <div className="min-h-screen pb-16">
-      <div className="border-b border-gray-200 px-4 py-3 bg-white">
-        <h1 className="text-lg font-bold">📊 {t('review.title')}</h1>
-      </div>
+      <PageHeader title={`📊 ${t('review.title')}`} onBack={() => nav(-1)} />
 
       <section className="p-4">
         <h2 className="text-sm font-medium text-gray-700 mb-2">{t('review.stats')}</h2>
