@@ -19,12 +19,12 @@ describe('PageHeader', () => {
     expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('My Title');
   });
 
-  it('shows back button by default and calls nav(-1) when clicked', () => {
-    const { container } = renderAt('/', { title: 'Chat' });
+  it('shows back button when onBack is provided and clicking it calls onBack', () => {
+    const onBack = vi.fn();
+    renderAt('/', { title: 'Chat', onBack });
     const btn = screen.getByLabelText('Back');
     fireEvent.click(btn);
-    expect(btn).toBeInTheDocument();
-    expect(container).toBeTruthy();
+    expect(onBack).toHaveBeenCalledTimes(1);
   });
 
   it('hides back button when onBack is omitted', () => {
