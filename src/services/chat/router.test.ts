@@ -16,7 +16,7 @@ describe('routeMessage', () => {
 
   it('returns a question for request_question from local bank', async () => {
     const out = await routeMessage('Cho tôi câu hỏi Toán', {
-      history: [], recentIds: [],
+      activeSubject: 'math', history: [], recentIds: [],
     });
     expect(out.messages).toHaveLength(1);
     expect(out.messages[0].role).toBe('bot');

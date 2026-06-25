@@ -1,6 +1,6 @@
 import { detectIntent } from './intents';
 import { getProvider, hasAiConfig, localProvider } from '../../providers';
-import { SUBJECT_BY_ID, pickRandomSubject } from '../../constants/subjects';
+import { pickRandomSubject } from '../../constants/subjects';
 import { rememberQuestion } from '../../stores/chat-store';
 import type { ChatMessage, Intent, Question, SubjectId } from '../../providers/types';
 import { log } from '../../utils/log';
