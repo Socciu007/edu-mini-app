@@ -1,17 +1,17 @@
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#86EFAC"/>
-      <stop offset="100%" stop-color="#15803D"/>
+      <stop offset="0%" stop-color="currentColor" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="currentColor" stop-opacity="1"/>
     </linearGradient>
     <radialGradient id="sparkGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#FCD34D" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#FCD34D" stop-opacity="0"/>
+      <stop offset="0%" stop-color="currentColor" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="currentColor" stop-opacity="0"/>
     </radialGradient>
   </defs>
   <rect x="4" y="13" width="3.5" height="7" rx="1" fill="url(#barGrad)"/>
   <rect x="10" y="9" width="3.5" height="11" rx="1" fill="url(#barGrad)"/>
   <rect x="16" y="6" width="3.5" height="14" rx="1" fill="url(#barGrad)"/>
   <circle cx="18" cy="5" r="4" fill="url(#sparkGlow)"/>
-  <path d="M18 2 L18.7 4.3 L21 5 L18.7 5.7 L18 8 L17.3 5.7 L15 5 L17.3 4.3 Z" fill="#FBBF24"/>
+  <path d="M18 2 L18.7 4.3 L21 5 L18.7 5.7 L18 8 L17.3 5.7 L15 5 L17.3 4.3 Z" fill="currentColor"/>
 </svg>
