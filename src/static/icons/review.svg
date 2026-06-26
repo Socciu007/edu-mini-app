@@ -1,3 +1,17 @@
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M3 13C3 16.866 6.13401 20 10 20H14C17.866 20 21 16.866 21 13V11C21 7.13401 17.866 4 14 4H10C6.13401 4 3 7.13401 3 11V13ZM22 11C22 7.13401 18.866 4 15 4H9C5.13401 4 2 7.13401 2 11V14C2 17.866 5.13401 21 9 21H13C16.866 21 20 17.866 20 14V13C21.1046 13 22 12.1046 22 11ZM8 11C8 11.5523 7.55228 12 7 12C6.44772 12 6 11.5523 6 11C6 10.4477 6.44772 10 7 10C7.55228 10 8 10.4477 8 11ZM13 11C13 11.5523 12.5523 12 12 12C11.4477 12 11 11.5523 11 11C11 10.4477 11.4477 10 12 10C12.5523 10 13 10.4477 13 11ZM17 11C17 11.5523 16.5523 12 16 12C15.4477 12 15 11.5523 15 11C15 10.4477 15.4477 10 16 10C16.5523 10 17 10.4477 17 11Z" fill="currentColor"/>
+  <defs>
+    <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#86EFAC"/>
+      <stop offset="100%" stop-color="#15803D"/>
+    </linearGradient>
+    <radialGradient id="sparkGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FCD34D" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#FCD34D" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect x="4" y="13" width="3.5" height="7" rx="1" fill="url(#barGrad)"/>
+  <rect x="10" y="9" width="3.5" height="11" rx="1" fill="url(#barGrad)"/>
+  <rect x="16" y="6" width="3.5" height="14" rx="1" fill="url(#barGrad)"/>
+  <circle cx="18" cy="5" r="4" fill="url(#sparkGlow)"/>
+  <path d="M18 2 L18.7 4.3 L21 5 L18.7 5.7 L18 8 L17.3 5.7 L15 5 L17.3 4.3 Z" fill="#FBBF24"/>
 </svg>
