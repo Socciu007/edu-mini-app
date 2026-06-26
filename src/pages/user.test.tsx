@@ -1,59 +1,84 @@
 import '@testing-library/jest-dom/vitest';
 import React from 'react';
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import UserPage from './user';
 import { useSettingsStore } from '../stores/settings-store';
+import { useThemeStore } from '../stores/theme-store';
+import { useChatStore } from '../stores/chat-store';
 
 describe('UserPage', () => {
   beforeEach(() => {
     useSettingsStore.setState({ language: 'vi', preferredProvider: 'auto' });
+    useThemeStore.setState({ mode: 'system' });
+    useChatStore.setState({ messages: [], activeSubject: undefined, recentQuestionIds: [], stats: { asked: 0, correct: 0 } });
   });
 
-  it('renders the user title in Vietnamese by default', () => {
+  it('renders the gradient header with title and subtitle', () => {
     render(<MemoryRouter><UserPage /></MemoryRouter>);
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Cá nhân');
+    expect(screen.getByText('Đăng nhập / Đăng ký')).toBeInTheDocument();
+    expect(screen.getByText('Xem thêm thông tin')).toBeInTheDocument();
   });
 
-  it('renders the user title in English when language is en', () => {
-    useSettingsStore.setState({ language: 'en' });
+  it('renders the login button', () => {
     render(<MemoryRouter><UserPage /></MemoryRouter>);
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Profile');
+    expect(screen.getByRole('button', { name: 'Đăng nhập ngay' })).toBeInTheDocument();
   });
 
-  it('shows the AI not configured warning when VITE_AI_API_KEY is empty', () => {
-    // @ts-ignore
-    import.meta.env.VITE_AI_API_KEY = '';
+  it('renders 3 quick action links', () => {
     render(<MemoryRouter><UserPage /></MemoryRouter>);
-    expect(screen.getByText(/Chưa cấu hình/)).toBeInTheDocument();
+    const links = screen.getAllByRole('link');
+    const quickLinks = links.filter((l) => ['/survey', '/review'].includes(l.getAttribute('href') || ''));
+    expect(quickLinks.length).toBeGreaterThanOrEqual(2);
   });
 
-    it('renders the theme section with 3 buttons', () => {
+  it('renders the AI Tutor banner', () => {
     render(<MemoryRouter><UserPage /></MemoryRouter>);
-    expect(screen.getByText('Giao diện')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Sáng' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Tối' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Hệ thống' })).toBeInTheDocument();
+    expect(screen.getByText('Trợ lý AI 24/7')).toBeInTheDocument();
+    expect(screen.getByText('Hỏi đáp bất kỳ lúc nào')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Dùng ngay' })).toBeInTheDocument();
   });
 
-  it('shows the system button as active by default', () => {
+  it('renders the Common Functions section with 4 items', () => {
     render(<MemoryRouter><UserPage /></MemoryRouter>);
-    const systemBtn = screen.getByRole('button', { name: 'Hệ thống' });
-    expect(systemBtn.className).toContain('bg-primary');
+    expect(screen.getByText('Chức năng thường dùng')).toBeInTheDocument();
+    expect(screen.getByText('Môn học')).toBeInTheDocument();
+    expect(screen.getByText('Bài tập')).toBeInTheDocument();
+    expect(screen.getByText('Bài giảng')).toBeInTheDocument();
+    expect(screen.getByText('Thi thử')).toBeInTheDocument();
   });
 
-  it('clicking the dark button changes the active state', () => {
+  it('renders the Other Functions section with 8 items', () => {
     render(<MemoryRouter><UserPage /></MemoryRouter>);
-    const darkBtn = screen.getByRole('button', { name: 'Tối' });
-    fireEvent.click(darkBtn);
-    expect(darkBtn.className).toContain('bg-primary');
+    expect(screen.getByText('Chức năng khác')).toBeInTheDocument();
+    expect(screen.getByText('Cài đặt')).toBeInTheDocument();
+    expect(screen.getByText('Ngôn ngữ')).toBeInTheDocument();
+    expect(screen.getByText('Bắt đầu lại cuộc trò chuyện')).toBeInTheDocument();
+    expect(screen.getByText('AI')).toBeInTheDocument();
+    expect(screen.getByText('Bảo mật')).toBeInTheDocument();
+    expect(screen.getByText('Hỗ trợ')).toBeInTheDocument();
+    expect(screen.getAllByText('Đánh giá').length).toBeGreaterThanOrEqual(1);
   });
 
-  it('clicking the light button makes it active', () => {
+  it('renders the footer', () => {
     render(<MemoryRouter><UserPage /></MemoryRouter>);
-    const lightBtn = screen.getByRole('button', { name: 'Sáng' });
-    fireEvent.click(lightBtn);
-    expect(lightBtn.className).toContain('bg-primary');
+    expect(screen.getByText('© 2024 Edu Mini App')).toBeInTheDocument();
+  });
+
+  it('clicking the theme tile cycles through theme modes', () => {
+    render(<MemoryRouter><UserPage /></MemoryRouter>);
+    expect(useThemeStore.getState().mode).toBe('system');
+    const themeTile = screen.getByText('Giao diện').closest('button')!;
+    fireEvent.click(themeTile);
+    expect(useThemeStore.getState().mode).toBe('light');
+  });
+
+  it('clicking the reset tile clears chat store', () => {
+    useChatStore.setState({ messages: [{ id: 'x', role: 'user', content: 'test', createdAt: 0 }] });
+    render(<MemoryRouter><UserPage /></MemoryRouter>);
+    const resetTile = screen.getByText('Bắt đầu lại cuộc trò chuyện').closest('button')!;
+    fireEvent.click(resetTile);
+    expect(useChatStore.getState().messages).toEqual([]);
   });
 });
