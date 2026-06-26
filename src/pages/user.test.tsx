@@ -12,7 +12,7 @@ describe('UserPage', () => {
   beforeEach(() => {
     useSettingsStore.setState({ language: 'vi', preferredProvider: 'auto' });
     useThemeStore.setState({ mode: 'system' });
-    useChatStore.setState({ messages: [], activeSubject: undefined, recentQuestionIds: [], stats: { asked: 0, correct: 0 } });
+    useChatStore.setState({ messages: [], recentQuestionIds: [], stats: { asked: 0, correct: 0 } });
   });
 
   it('renders the gradient header with title and subtitle', () => {
