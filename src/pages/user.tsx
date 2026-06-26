@@ -10,10 +10,10 @@ import LockIcon from '@/static/icons/lock.svg?react'
 import PencilIcon from '@/static/icons/pencil.svg?react'
 import RateIcon from '@/static/icons/rate.svg?react'
 import RefreshIcon from '@/static/icons/refresh.svg?react'
-import ReviewIcon from '@/static/icons/review.svg?react'
+import Review1Icon from '@/static/icons/review-1.svg?react'
 import SettingsIcon from '@/static/icons/settings.svg?react'
 import StarIcon from '@/static/icons/star.svg?react'
-import SurveyIcon from '@/static/icons/survey.svg?react'
+import Survey1Icon from '@/static/icons/survey-1.svg?react'
 import TestIcon from '@/static/icons/test.svg?react'
 import ThemeIcon from '@/static/icons/theme.svg?react'
 
@@ -46,9 +46,9 @@ export default function UserPage() {
       {/* Quick actions */}
       <div className="px-4 -mt-6 relative z-10">
         <div className="bg-surface rounded-xl shadow-sm p-4 flex justify-around">
-          <QuickAction label={t('survey.headerTitle')} to="/survey" Icon={SurveyIcon} />
+          <QuickAction label={t('survey.headerTitle')} to="/survey" Icon={Survey1Icon} />
           <QuickAction label={t('user.favorite')} to="/review" Icon={StarIcon} />
-          <QuickAction label={t('review.headerTitle')} to="/review" Icon={ReviewIcon} />
+          <QuickAction label={t('review.headerTitle')} to="/review" Icon={Review1Icon} />
         </div>
       </div>
 
