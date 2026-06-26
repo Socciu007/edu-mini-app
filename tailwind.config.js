@@ -5,7 +5,6 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        ng: { 10: 'rgb(var(--color-ng-10) / <alpha-value>)' },
         background: { DEFAULT: 'var(--color-background)' },
         surface: 'var(--color-surface)',
         card: 'var(--color-card-hover)',
@@ -14,7 +13,7 @@ module.exports = {
         header: 'var(--color-header-bg)',
         input: 'var(--color-input-bg)',
         primary: {
-          DEFAULT: 'rgb(var(--color-primary-rgb) / <alpha-value>)',
+          DEFAULT: 'var(--color-primary)',
           pressed: 'var(--color-primary-pressed)',
           foreground: 'var(--color-primary-foreground)',
         },
