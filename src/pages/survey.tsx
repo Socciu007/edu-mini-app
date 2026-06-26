@@ -105,10 +105,10 @@ export default function SurveyPage() {
         <div className="p-6 flex flex-col items-center justify-center text-center">
           <div className="text-5xl mb-4">📝</div>
           <h1 className="text-xl font-bold mb-2">{t('survey.title')}</h1>
-          <p className="text-gray-500 mb-8">{t('survey.description')}</p>
+          <p className="text-text-subtle mb-8">{t('survey.description')}</p>
           <button
             onClick={handleStart}
-            className="rounded-full bg-blue-500 text-white px-8 py-3 text-sm font-medium"
+            className="rounded-full bg-primary text-primary-foreground px-8 py-3 text-sm font-medium"
           >
             {t('survey.start')}
           </button>
@@ -128,16 +128,16 @@ export default function SurveyPage() {
           <p className="text-2xl mb-6">{t('survey.score', { correct: correctCount, total: state.questions.length })}</p>
           <div className="space-y-2 mb-8 w-full max-w-md">
             {state.questions.map((q, i) => (
-              <div key={q.id} className="flex items-center justify-between border-b border-gray-100 py-2 text-left">
+              <div key={q.id} className="flex items-center justify-between border-b border-border py-2 text-left">
                 <div className="flex-1 mr-2 text-sm">
                   <KatexRenderer>{q.prompt.vi}</KatexRenderer>
                 </div>
                 {state.answers[i] === true ? (
-                  <CheckIcon className="w-5 h-5 text-green-600" aria-label="Correct" />
+                  <CheckIcon className="w-5 h-5 text-success" aria-label="Correct" />
                 ) : state.answers[i] === false ? (
-                  <XIcon className="w-5 h-5 text-red-600" aria-label="Incorrect" />
+                  <XIcon className="w-5 h-5 text-danger" aria-label="Incorrect" />
                 ) : (
-                  <span className="text-gray-400 text-lg">—</span>
+                  <span className="text-text-subtle text-lg">—</span>
                 )}
               </div>
             ))}
@@ -145,13 +145,13 @@ export default function SurveyPage() {
           <div className="flex gap-3">
             <button
               onClick={handleRetry}
-              className="rounded-full bg-blue-500 text-white px-6 py-2 text-sm font-medium"
+              className="rounded-full bg-primary text-primary-foreground px-6 py-2 text-sm font-medium"
             >
               {t('survey.retry')}
             </button>
             <button
               onClick={() => nav('/')}
-              className="rounded-full border border-gray-300 text-gray-700 px-6 py-2 text-sm font-medium"
+              className="rounded-full border border-border text-text-secondary px-6 py-2 text-sm font-medium"
             >
               {t('survey.backToChat')}
             </button>
@@ -168,10 +168,10 @@ export default function SurveyPage() {
       <PageHeader title={`📝 ${t('survey.title')}`} onBack={() => nav('/')} />
       <div className="flex-1 p-4 flex flex-col">
         <div className="flex items-center justify-between mb-4">
-          <span className="text-sm text-gray-600">
+          <span className="text-sm text-text-secondary">
             {t('survey.progress', { current: state.currentIdx + 1, total: state.questions.length })}
           </span>
-          <span className={`text-sm font-mono ${state.secondsLeft <= 10 ? 'text-red-500' : 'text-gray-700'}`}>
+          <span className={`text-sm font-mono ${state.secondsLeft <= 10 ? 'text-danger' : 'text-text-secondary'}`}>
             {t('survey.timeLeft', { seconds: state.secondsLeft })}
           </span>
         </div>
@@ -184,7 +184,7 @@ export default function SurveyPage() {
               <button
                 key={idx}
                 onClick={() => handleChoice(idx, q)}
-                className="w-full text-left rounded-lg border border-gray-300 px-4 py-3 text-sm hover:bg-gray-50"
+                className="w-full text-left rounded-lg border border-border px-4 py-3 text-sm hover:bg-background"
               >
                 {String.fromCharCode(65 + idx)}. {choice}
               </button>
@@ -194,7 +194,7 @@ export default function SurveyPage() {
         <div className="text-center mt-4">
           <button
             onClick={handleSkip}
-            className="text-xs text-gray-500 underline"
+            className="text-xs text-text-subtle underline"
           >
             {t('survey.skip')}
           </button>

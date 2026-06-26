@@ -14,10 +14,10 @@ export function PageHeader({ title, onBack, right }: Props) {
   const showBack = Boolean(onBack)
   const handleBack = onBack ?? (() => nav(-1))
   return (
-    <header className="flex items-center justify-between px-4 py-3 bg-white">
+    <header className="flex items-center justify-between px-4 py-3 bg-header">
       {showBack ? (
         <button onClick={handleBack} className="w-16 bg-transparent text-left border-none" aria-label="Back">
-          <ArrowLeft className="w-5 h-5 text-gray-600" />
+          <ArrowLeft className="w-5 h-5 text-text-secondary" />
         </button>
       ) : (
         <div className="w-16" />

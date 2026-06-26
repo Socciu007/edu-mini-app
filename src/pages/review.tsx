@@ -31,34 +31,34 @@ export default function ReviewPage() {
       <PageHeader title={`📊 ${t('review.title')}`} onBack={() => nav(-1)} />
 
       <section className="p-4">
-        <h2 className="text-sm font-medium text-gray-700 mb-2">{t('review.stats')}</h2>
+        <h2 className="text-sm font-medium text-text-secondary mb-2">{t('review.stats')}</h2>
         <div className="grid grid-cols-3 gap-2 text-center">
-          <div className="rounded-lg border border-gray-200 p-3">
-            <div className="text-xs text-gray-500">{t('review.asked')}</div>
+          <div className="rounded-lg border border-border p-3">
+            <div className="text-xs text-text-subtle">{t('review.asked')}</div>
             <div className="text-2xl font-bold">{asked}</div>
           </div>
-          <div className="rounded-lg border border-gray-200 p-3">
-            <div className="text-xs text-gray-500">{t('review.correct')}</div>
+          <div className="rounded-lg border border-border p-3">
+            <div className="text-xs text-text-subtle">{t('review.correct')}</div>
             <div className="text-2xl font-bold">{correct}</div>
           </div>
-          <div className="rounded-lg border border-gray-200 p-3">
-            <div className="text-xs text-gray-500">{t('review.accuracy')}</div>
+          <div className="rounded-lg border border-border p-3">
+            <div className="text-xs text-text-subtle">{t('review.accuracy')}</div>
             <div className="text-2xl font-bold">{accuracy}</div>
           </div>
         </div>
       </section>
 
       <section className="p-4">
-        <h2 className="text-sm font-medium text-gray-700 mb-2">💬 {t('review.history')}</h2>
+        <h2 className="text-sm font-medium text-text-secondary mb-2">💬 {t('review.history')}</h2>
         {messages.length === 0 ? (
-          <div className="rounded-lg border border-dashed border-gray-300 p-6 text-center text-sm text-gray-500">
+          <div className="rounded-lg border border-dashed border-border p-6 text-center text-sm text-text-subtle">
             {t('review.empty')}
           </div>
         ) : (
           <div className="space-y-1">
             {messages.map((m) => (
               <div key={m.id}>
-                <div className="text-[10px] text-gray-400 px-2">{formatRelative(m.createdAt, language)}</div>
+                <div className="text-[10px] text-text-subtle px-2">{formatRelative(m.createdAt, language)}</div>
                 <MessageBubble message={m} />
               </div>
             ))}

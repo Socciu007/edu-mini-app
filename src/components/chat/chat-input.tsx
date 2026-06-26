@@ -17,7 +17,7 @@ export function ChatInput({ onSend, disabled }: Props) {
   };
 
   return (
-    <div className="flex items-center gap-2 border-t border-gray-200 p-2 bg-white">
+    <div className="flex items-center gap-2 border-t border-border p-2 bg-input">
       <textarea
         rows={1}
         value={text}
@@ -29,13 +29,13 @@ export function ChatInput({ onSend, disabled }: Props) {
           }
         }}
         placeholder={t('chat.placeholder')}
-        className="flex-1 resize-none border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+        className="flex-1 resize-none border border-border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
         disabled={disabled}
       />
       <button
         onClick={submit}
         disabled={disabled || !text.trim()}
-        className="rounded-lg bg-blue-500 text-white px-4 py-2 text-sm disabled:opacity-50"
+        className="rounded-lg bg-primary text-primary-foreground px-4 py-2 text-sm disabled:opacity-50"
       >
         {t('chat.send')}
       </button>
