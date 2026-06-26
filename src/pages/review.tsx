@@ -1,34 +1,35 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useChatStore } from '../stores/chat-store';
-import { MessageBubble } from '../components/chat/message-bubble';
-import { useTranslation } from '../i18n/use-translation';
-import { PageHeader } from '../components/page-header';
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+
+import { MessageBubble } from '../components/chat/message-bubble'
+import { PageHeader } from '../components/page-header'
+import { useTranslation } from '../i18n/use-translation'
+import { useChatStore } from '../stores/chat-store'
 
 function formatRelative(ts: number, lang: 'vi' | 'en'): string {
-  const diff = Date.now() - ts;
-  const sec = Math.floor(diff / 1000);
-  if (sec < 30) return lang === 'vi' ? 'vừa xong' : 'just now';
-  if (sec < 60) return lang === 'vi' ? `${sec} giây trước` : `${sec}s ago`;
-  const min = Math.floor(sec / 60);
-  if (min < 60) return lang === 'vi' ? `${min} phút trước` : `${min}m ago`;
-  const hr = Math.floor(min / 60);
-  if (hr < 24) return lang === 'vi' ? `${hr} giờ trước` : `${hr}h ago`;
-  const d = Math.floor(hr / 24);
-  return lang === 'vi' ? `${d} ngày trước` : `${d}d ago`;
+  const diff = Date.now() - ts
+  const sec = Math.floor(diff / 1000)
+  if (sec < 30) return lang === 'vi' ? 'vừa xong' : 'just now'
+  if (sec < 60) return lang === 'vi' ? `${sec} giây trước` : `${sec}s ago`
+  const min = Math.floor(sec / 60)
+  if (min < 60) return lang === 'vi' ? `${min} phút trước` : `${min}m ago`
+  const hr = Math.floor(min / 60)
+  if (hr < 24) return lang === 'vi' ? `${hr} giờ trước` : `${hr}h ago`
+  const d = Math.floor(hr / 24)
+  return lang === 'vi' ? `${d} ngày trước` : `${d}d ago`
 }
 
 export default function ReviewPage() {
-  const { t, language } = useTranslation();
-  const messages = useChatStore((s) => s.messages);
-  const asked = useChatStore((s) => s.stats.asked);
-  const correct = useChatStore((s) => s.stats.correct);
-  const accuracy = asked > 0 ? `${Math.round((correct / asked) * 100)}%` : '—';
-  const nav = useNavigate();
+  const { t, language } = useTranslation()
+  const messages = useChatStore((s) => s.messages)
+  const asked = useChatStore((s) => s.stats.asked)
+  const correct = useChatStore((s) => s.stats.correct)
+  const accuracy = asked > 0 ? `${Math.round((correct / asked) * 100)}%` : '—'
+  const nav = useNavigate()
 
   return (
     <div className="min-h-screen pb-16">
-      <PageHeader title={`📊 ${t('review.title')}`} onBack={() => nav(-1)} />
+      <PageHeader title={t('review.title')} onBack={() => nav(-1)} />
 
       <section className="p-4">
         <h2 className="text-sm font-medium text-text-secondary mb-2">{t('review.stats')}</h2>
@@ -66,5 +67,5 @@ export default function ReviewPage() {
         )}
       </section>
     </div>
-  );
+  )
 }

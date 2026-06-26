@@ -33,7 +33,7 @@ export default function ChatPage() {
         // }
       />
       {!aiReady && (
-        <div className="bg-[#FEF9C3] text-text-secondary text-xs px-4 py-2 border-b border-border">
+        <div className="bg-[#FEF9C3] text-[#000] text-xs px-4 py-2 border-b border-border">
           {t('chat.aiNotConfiguredRandom')}
         </div>
       )}

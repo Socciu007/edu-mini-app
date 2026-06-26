@@ -11,12 +11,7 @@
     "settings": "Cài đặt",
     "back": "Quay lại",
     "empty": "Hãy chọn môn học và bắt đầu!",
-    "starterPrompts": [
-      "Cho tôi câu hỏi Toán",
-      "Explain photosynthesis",
-      "Hóa học lớp 10",
-      "Tiếng Anh ngữ pháp"
-    ],
+    "starterPrompts": ["Cho tôi câu hỏi Toán", "Explain photosynthesis", "Hóa học lớp 10", "Tiếng Anh ngữ pháp"],
     "aiNotConfiguredRandom": "AI chưa được cấu hình. Câu hỏi sẽ random từ ngân hàng cục bộ."
   },
   "subjects": {
@@ -26,14 +21,14 @@
     "english": "Tiếng Anh"
   },
   "tabs": {
-    "chat": "Chat",
+    "chat": "AI Chat",
     "survey": "Khảo sát",
-    "review": "Review",
+    "review": "Đánh giá",
     "user": "Cá nhân"
   },
   "survey": {
     "headerTitle": "Khảo sát",
-    "title": "Khảo sát nhanh",
+    "title": "Khảo sát",
     "description": "Trả lời 5 câu hỏi ngẫu nhiên. Mỗi câu có 30 giây.",
     "start": "Bắt đầu",
     "progress": "Câu {{current}} / {{total}}",
@@ -47,8 +42,8 @@
     "backToChat": "Về Chat"
   },
   "review": {
-    "headerTitle": "Review",
-    "title": "Review",
+    "headerTitle": "Đánh giá",
+    "title": "Đánh giá",
     "stats": "Tổng quan",
     "asked": "Đã làm",
     "correct": "Đúng",
@@ -61,7 +56,7 @@
     "title": "Cá nhân",
     "language": "Ngôn ngữ",
     "languageVi": "Tiếng Việt",
-    "languageEn": "English",
+    "languageEn": "Tiếng Anh",
     "provider": "Nguồn câu hỏi",
     "providerAuto": "Tự động (ưu tiên cục bộ)",
     "providerLocal": "Chỉ ngân hàng cục bộ",

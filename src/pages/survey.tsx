@@ -1,65 +1,67 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ALL_QUESTIONS } from '../data/questions';
-import { KatexRenderer } from '../components/katex-renderer';
-import { PageHeader } from '../components/page-header';
-import { useTranslation } from '../i18n/use-translation';
-import CheckIcon from '@/static/icons/check.svg?react';
-import XIcon from '@/static/icons/x.svg?react';
-import type { Question } from '../providers/types';
+import React, { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-const QUESTION_COUNT = 5;
-const QUESTION_DURATION_SEC = 30;
-const ADVANCE_DELAY_MS = 1000;
+import CheckIcon from '@/static/icons/check.svg?react'
+import XIcon from '@/static/icons/x.svg?react'
+
+import { KatexRenderer } from '../components/katex-renderer'
+import { PageHeader } from '../components/page-header'
+import { ALL_QUESTIONS } from '../data/questions'
+import { useTranslation } from '../i18n/use-translation'
+import type { Question } from '../providers/types'
+
+const QUESTION_COUNT = 5
+const QUESTION_DURATION_SEC = 30
+const ADVANCE_DELAY_MS = 1000
 
 type SurveyState =
   | { kind: 'idle' }
   | { kind: 'playing'; questions: Question[]; currentIdx: number; answers: (boolean | null)[]; secondsLeft: number }
-  | { kind: 'finished'; questions: Question[]; answers: (boolean | null)[] };
+  | { kind: 'finished'; questions: Question[]; answers: (boolean | null)[] }
 
 function pickQuestions(): Question[] {
-  const mcq = ALL_QUESTIONS.filter((q) => q.choices && q.choices.length > 0);
-  const shuffled = [...mcq];
+  const mcq = ALL_QUESTIONS.filter((q) => q.choices && q.choices.length > 0)
+  const shuffled = [...mcq]
   for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
   }
-  return shuffled.slice(0, Math.min(QUESTION_COUNT, shuffled.length));
+  return shuffled.slice(0, Math.min(QUESTION_COUNT, shuffled.length))
 }
 
 export default function SurveyPage() {
-  const { t } = useTranslation();
-  const nav = useNavigate();
-  const [state, setState] = useState<SurveyState>({ kind: 'idle' });
-  const advanceTimer = useRef<number | null>(null);
+  const { t } = useTranslation()
+  const nav = useNavigate()
+  const [state, setState] = useState<SurveyState>({ kind: 'idle' })
+  const advanceTimer = useRef<number | null>(null)
 
   // Timer tick
   useEffect(() => {
-    if (state.kind !== 'playing') return;
-    if (state.secondsLeft <= 0) return;
+    if (state.kind !== 'playing') return
+    if (state.secondsLeft <= 0) return
     const id = window.setTimeout(() => {
-      setState((s) => s.kind === 'playing' ? { ...s, secondsLeft: Math.max(0, s.secondsLeft - 1) } : s);
-    }, 1000);
-    return () => window.clearTimeout(id);
-  }, [state.kind === 'playing' ? state.secondsLeft : null, state.kind]);
+      setState((s) => (s.kind === 'playing' ? { ...s, secondsLeft: Math.max(0, s.secondsLeft - 1) } : s))
+    }, 1000)
+    return () => window.clearTimeout(id)
+  }, [state.kind === 'playing' ? state.secondsLeft : null, state.kind])
 
   // Timer expiry → mark incorrect, advance
   useEffect(() => {
-    if (state.kind !== 'playing') return;
-    if (state.secondsLeft > 0) return;
-    advanceWithAnswer(null);
-  }, [state.kind === 'playing' ? state.secondsLeft : null, state.kind]);
+    if (state.kind !== 'playing') return
+    if (state.secondsLeft > 0) return
+    advanceWithAnswer(null)
+  }, [state.kind === 'playing' ? state.secondsLeft : null, state.kind])
 
   function advanceWithAnswer(answer: boolean | null) {
-    if (state.kind !== 'playing') return;
-    const nextAnswers = [...state.answers];
-    nextAnswers[state.currentIdx] = answer;
-    const nextIdx = state.currentIdx + 1;
-    if (advanceTimer.current) window.clearTimeout(advanceTimer.current);
+    if (state.kind !== 'playing') return
+    const nextAnswers = [...state.answers]
+    nextAnswers[state.currentIdx] = answer
+    const nextIdx = state.currentIdx + 1
+    if (advanceTimer.current) window.clearTimeout(advanceTimer.current)
     if (nextIdx >= state.questions.length) {
       advanceTimer.current = window.setTimeout(() => {
-        setState({ kind: 'finished', questions: state.questions, answers: nextAnswers });
-      }, ADVANCE_DELAY_MS);
+        setState({ kind: 'finished', questions: state.questions, answers: nextAnswers })
+      }, ADVANCE_DELAY_MS)
     } else {
       advanceTimer.current = window.setTimeout(() => {
         setState({
@@ -68,8 +70,8 @@ export default function SurveyPage() {
           currentIdx: nextIdx,
           answers: nextAnswers,
           secondsLeft: QUESTION_DURATION_SEC,
-        });
-      }, ADVANCE_DELAY_MS);
+        })
+      }, ADVANCE_DELAY_MS)
     }
   }
 
@@ -80,28 +82,28 @@ export default function SurveyPage() {
       currentIdx: 0,
       answers: [],
       secondsLeft: QUESTION_DURATION_SEC,
-    });
+    })
   }
 
   function handleChoice(idx: number, q: Question) {
-    if (!q.choices) return;
-    const correct = q.choices[idx] === q.answer;
-    advanceWithAnswer(correct);
+    if (!q.choices) return
+    const correct = q.choices[idx] === q.answer
+    advanceWithAnswer(correct)
   }
 
   function handleSkip() {
-    advanceWithAnswer(null);
+    advanceWithAnswer(null)
   }
 
   function handleRetry() {
-    setState({ kind: 'idle' });
+    setState({ kind: 'idle' })
   }
 
   // Render
   if (state.kind === 'idle') {
     return (
       <div className="min-h-screen pb-16">
-        <PageHeader title={`📝 ${t('survey.title')}`} onBack={() => nav('/')} />
+        <PageHeader title={t('survey.title')} onBack={() => nav('/')} />
         <div className="p-6 flex flex-col items-center justify-center text-center">
           <div className="text-5xl mb-4">📝</div>
           <h1 className="text-xl font-bold mb-2">{t('survey.title')}</h1>
@@ -114,11 +116,11 @@ export default function SurveyPage() {
           </button>
         </div>
       </div>
-    );
+    )
   }
 
   if (state.kind === 'finished') {
-    const correctCount = state.answers.filter((a) => a === true).length;
+    const correctCount = state.answers.filter((a) => a === true).length
     return (
       <div className="min-h-screen pb-16 flex flex-col items-center justify-center text-center">
         <PageHeader title={`📝 ${t('survey.title')}`} onBack={() => nav('/')} />
@@ -158,11 +160,11 @@ export default function SurveyPage() {
           </div>
         </div>
       </div>
-    );
+    )
   }
 
   // playing
-  const q = state.questions[state.currentIdx];
+  const q = state.questions[state.currentIdx]
   return (
     <div className="min-h-screen pb-16 flex flex-col">
       <PageHeader title={`📝 ${t('survey.title')}`} onBack={() => nav('/')} />
@@ -192,14 +194,11 @@ export default function SurveyPage() {
           </div>
         </div>
         <div className="text-center mt-4">
-          <button
-            onClick={handleSkip}
-            className="text-xs text-text-subtle underline"
-          >
+          <button onClick={handleSkip} className="text-xs text-text-subtle underline">
             {t('survey.skip')}
           </button>
         </div>
       </div>
     </div>
-  );
+  )
 }
