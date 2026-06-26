@@ -1,87 +1,109 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSettingsStore } from '../stores/settings-store';
-import { useChatStore } from '../stores/chat-store';
-import { useThemeStore, type ThemeMode } from '../stores/theme-store';
-import { useTranslation } from '../i18n/use-translation';
-import { LanguageToggle } from '../components/language-toggle';
-import { PageHeader } from '../components/page-header';
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
-const THEME_MODES: ThemeMode[] = ['light', 'dark', 'system'];
+import BookIcon from '@/static/icons/book.svg?react'
+import BotIcon from '@/static/icons/bot.svg?react'
+import GlobeIcon from '@/static/icons/globe.svg?react'
+import HelpIcon from '@/static/icons/help.svg?react'
+import LectureIcon from '@/static/icons/lecture.svg?react'
+import LockIcon from '@/static/icons/lock.svg?react'
+import PencilIcon from '@/static/icons/pencil.svg?react'
+import RateIcon from '@/static/icons/rate.svg?react'
+import RefreshIcon from '@/static/icons/refresh.svg?react'
+import ReviewIcon from '@/static/icons/review.svg?react'
+import SettingsIcon from '@/static/icons/settings.svg?react'
+import StarIcon from '@/static/icons/star.svg?react'
+import SurveyIcon from '@/static/icons/survey.svg?react'
+import TestIcon from '@/static/icons/test.svg?react'
+import ThemeIcon from '@/static/icons/theme.svg?react'
+
+import { FunctionTile } from '../components/user/function-tile'
+import { GradientHeader } from '../components/user/gradient-header'
+import { InfoBanner } from '../components/user/info-banner'
+import { QuickAction } from '../components/user/quick-action'
+import { useTranslation } from '../i18n/use-translation'
+import { useChatStore } from '../stores/chat-store'
+import { useSettingsStore } from '../stores/settings-store'
+import { type ThemeMode, useThemeStore } from '../stores/theme-store'
+
+const THEME_MODES: ThemeMode[] = ['light', 'dark', 'system']
 
 export default function UserPage() {
-  const { t } = useTranslation();
-  const nav = useNavigate();
-  const preferredProvider = useSettingsStore((s) => s.preferredProvider);
-  const setProvider = useSettingsStore((s) => s.setProvider);
-  const resetChat = useChatStore((s) => s.reset);
-  const mode = useThemeStore((s) => s.mode);
-  const setMode = useThemeStore((s) => s.setMode);
-  const aiReady = Boolean(import.meta.env.VITE_AI_API_KEY);
+  const { t } = useTranslation()
+  const nav = useNavigate()
+  const resetChat = useChatStore((s) => s.reset)
+  const preferredProvider = useSettingsStore((s) => s.preferredProvider)
+  const setProvider = useSettingsStore((s) => s.setProvider)
+  const mode = useThemeStore((s) => s.mode)
+  const setMode = useThemeStore((s) => s.setMode)
 
   return (
-    <div className="min-h-screen pb-16">
-      <PageHeader title={`👤 ${t('user.title')}`} onBack={() => nav('/')} />
-      <div className="p-4">
+    <div className="pb-16">
+      <GradientHeader
+        title={t('user.loginTitle')}
+        subtitle={t('user.loginSubtitle')}
+        buttonText={t('user.loginButton')}
+        onButtonClick={() => nav('/')}
+      />
 
-      <section className="mb-6">
-        <h2 className="text-sm font-medium text-text-secondary mb-2">{t('user.language')}</h2>
-        <LanguageToggle />
-      </section>
-
-      <section className="mb-6">
-        <h2 className="text-sm font-medium text-text-secondary mb-2">{t('user.theme')}</h2>
-        <div className="flex gap-2">
-          {THEME_MODES.map((m) => (
-            <button
-              key={m}
-              onClick={() => setMode(m)}
-              className={`flex-1 rounded-lg border py-2 text-sm ${
-                mode === m
-                  ? 'border-primary bg-primary text-primary-foreground'
-                  : 'border-border text-text-secondary'
-              }`}
-            >
-              {t(`user.theme${m[0].toUpperCase()}${m.slice(1)}`)}
-            </button>
-          ))}
+      {/* Quick actions */}
+      <div className="px-4 -mt-6 relative z-10">
+        <div className="bg-surface rounded-xl shadow-sm p-4 flex justify-around">
+          <QuickAction label={t('survey.headerTitle')} to="/survey" Icon={SurveyIcon} />
+          <QuickAction label={t('user.favorite')} to="/review" Icon={StarIcon} />
+          <QuickAction label={t('review.headerTitle')} to="/review" Icon={ReviewIcon} />
         </div>
-      </section>
-
-      <section className="mb-6">
-        <h2 className="text-sm font-medium text-text-secondary mb-2">{t('user.aiStatus')}</h2>
-        <div className={`text-sm ${aiReady ? 'text-success' : 'text-warning'}`}>
-          {aiReady ? `✅ ${t('user.aiReady')}` : `⚠️ ${t('user.aiNotConfigured')}`}
-        </div>
-        <div className="text-xs text-text-subtle mt-1">
-          Model: {(import.meta.env.VITE_AI_MODEL as string) || 'gpt-4o-mini'}
-        </div>
-      </section>
-
-      <section className="mb-6">
-        <h2 className="text-sm font-medium text-text-secondary mb-2">{t('user.provider')}</h2>
-        <div className="flex flex-col gap-2">
-          {(['auto', 'local', 'ai'] as const).map((p) => (
-            <label key={p} className="flex items-center gap-2 text-sm">
-              <input
-                type="radio"
-                name="provider"
-                checked={preferredProvider === p}
-                onChange={() => setProvider(p)}
-              />
-              {t(`user.provider${p[0].toUpperCase()}${p.slice(1)}` as any)}
-            </label>
-          ))}
-        </div>
-      </section>
-
-      <button
-        onClick={() => { resetChat(); nav('/'); }}
-        className="w-full rounded-lg border border-danger text-danger py-2 text-sm"
-      >
-        {t('user.reset')}
-      </button>
       </div>
+
+      {/* AI banner */}
+      <div className="px-4 mt-4">
+        <InfoBanner
+          title={t('user.aiBanner.title')}
+          subtitle={t('user.aiBanner.subtitle')}
+          cta={t('user.aiBanner.cta')}
+          Icon={BotIcon}
+          onCtaClick={() => nav('/')}
+        />
+      </div>
+
+      {/* Common functions */}
+      <section className="px-4 mt-6">
+        <h2 className="text-sm font-semibold text-text mb-3">{t('user.commonFunctions')}</h2>
+        <div className="bg-surface rounded-xl p-4 grid grid-cols-4 gap-4">
+          <FunctionTile label={t('user.subjects')} Icon={BookIcon} />
+          <FunctionTile label={t('user.exercises')} Icon={PencilIcon} />
+          <FunctionTile label={t('user.lessons')} Icon={LectureIcon} />
+          <FunctionTile label={t('user.exams')} Icon={TestIcon} />
+        </div>
+      </section>
+
+      {/* Other functions */}
+      <section className="px-4 mt-6">
+        <h2 className="text-sm font-semibold text-text mb-3">{t('user.otherFunctions')}</h2>
+        <div className="bg-surface rounded-xl p-4 grid grid-cols-4 gap-4">
+          <FunctionTile label={t('user.settings')} Icon={SettingsIcon} />
+          <FunctionTile label={t('user.language')} Icon={GlobeIcon} />
+          <FunctionTile
+            label={t('user.theme')}
+            Icon={ThemeIcon}
+            onClick={() => {
+              const next = THEME_MODES[(THEME_MODES.indexOf(mode) + 1) % THEME_MODES.length]
+              setMode(next)
+            }}
+          />
+          <FunctionTile label={t('user.reset')} Icon={RefreshIcon} onClick={() => resetChat()} />
+          <FunctionTile label={t('user.ai')} Icon={BotIcon} onClick={() => nav('/')} />
+          <FunctionTile label={t('user.security')} Icon={LockIcon} />
+          <FunctionTile label={t('user.support')} Icon={HelpIcon} />
+          <FunctionTile label={t('user.rate')} Icon={RateIcon} />
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="px-4 mt-6 pb-8 text-xs text-text-subtle text-center space-y-1">
+        <p>{t('user.footer.support')}</p>
+        <p>{t('user.footer.copyright')}</p>
+      </footer>
     </div>
-  );
+  )
 }
