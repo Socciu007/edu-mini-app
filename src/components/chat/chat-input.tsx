@@ -1,31 +1,32 @@
-import React, { useState } from 'react';
-import { useTranslation } from '../../i18n/use-translation';
+import React, { useState } from 'react'
+
+import { useTranslation } from '../../i18n/use-translation'
 
 interface Props {
-  onSend: (text: string) => void;
-  disabled?: boolean;
+  onSend: (text: string) => void
+  disabled?: boolean
 }
 
 export function ChatInput({ onSend, disabled }: Props) {
-  const { t } = useTranslation();
-  const [text, setText] = useState('');
+  const { t } = useTranslation()
+  const [text, setText] = useState('')
 
   const submit = () => {
-    if (!text.trim() || disabled) return;
-    onSend(text.trim());
-    setText('');
-  };
+    if (!text.trim() || disabled) return
+    onSend(text.trim())
+    setText('')
+  }
 
   return (
-    <div className="flex items-center gap-2 border-t border-border p-2 bg-input">
+    <div className="flex items-center gap-2 border-border p-2 bg-background">
       <textarea
         rows={1}
         value={text}
         onChange={(e) => setText(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            submit();
+            e.preventDefault()
+            submit()
           }
         }}
         placeholder={t('chat.placeholder')}
@@ -35,10 +36,10 @@ export function ChatInput({ onSend, disabled }: Props) {
       <button
         onClick={submit}
         disabled={disabled || !text.trim()}
-        className="rounded-lg bg-primary text-primary-foreground px-4 py-2 text-sm disabled:opacity-50"
+        className="rounded-lg bg-primary border-border text-text-secondary px-4 py-2 text-sm disabled:opacity-50"
       >
         {t('chat.send')}
       </button>
     </div>
-  );
+  )
 }

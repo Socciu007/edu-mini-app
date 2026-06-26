@@ -25,7 +25,7 @@ export function TabBar() {
   const { t } = useTranslation()
   return (
     <nav
-      className="fixed bottom-0 left-0 right-0 bg-tabbar border-border flex justify-around pb-[env(safe-area-inset-bottom)] z-50"
+      className="fixed bottom-0 left-0 right-0 bg-tabbar border-border flex justify-around pb-[env(safe-area-inset-bottom)] z-10"
       role="navigation"
       aria-label="Main"
     >
@@ -36,13 +36,13 @@ export function TabBar() {
           end={tab.to === '/'}
           className={({ isActive }) =>
             `tab-item flex flex-col no-underline items-center justify-center flex-1 py-2 text-xs ${
-              isActive ? 'text-primary font-semibold is-active' : 'text-text-subtle font-normal'
+              isActive ? 'text-[#22C55E] font-semibold is-active' : 'text-text-secondary font-normal'
             }`
           }
         >
           {({ isActive }) => (
             <>
-              <tab.Icon className="w-5 h-5 mb-1" aria-hidden="true" />
+              <tab.Icon className="w-6 h-6 mb-1" aria-hidden="true" />
               {!isActive && <span>{t(`tabs.${tab.labelKey}`)}</span>}
             </>
           )}

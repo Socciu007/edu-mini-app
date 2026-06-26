@@ -22,7 +22,7 @@ export default function ChatPage() {
   }, [messages.length])
 
   return (
-    <div className="h-screen flex flex-col">
+    <div className="flex flex-col">
       <PageHeader
         title={t('tabs.chat')}
         onBack={() => nav('/')}
@@ -33,7 +33,7 @@ export default function ChatPage() {
         // }
       />
       {!aiReady && (
-        <div className="bg-accent-soft text-warning text-xs px-4 py-2 border-b border-border">
+        <div className="bg-[#FEF9C3] text-text-secondary text-xs px-4 py-2 border-b border-border">
           {t('chat.aiNotConfiguredRandom')}
         </div>
       )}
