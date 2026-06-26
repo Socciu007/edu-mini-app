@@ -23,7 +23,6 @@ import { InfoBanner } from '../components/user/info-banner'
 import { QuickAction } from '../components/user/quick-action'
 import { useTranslation } from '../i18n/use-translation'
 import { useChatStore } from '../stores/chat-store'
-import { useSettingsStore } from '../stores/settings-store'
 import { type ThemeMode, useThemeStore } from '../stores/theme-store'
 
 const THEME_MODES: ThemeMode[] = ['light', 'dark', 'system']
@@ -32,8 +31,6 @@ export default function UserPage() {
   const { t } = useTranslation()
   const nav = useNavigate()
   const resetChat = useChatStore((s) => s.reset)
-  const preferredProvider = useSettingsStore((s) => s.preferredProvider)
-  const setProvider = useSettingsStore((s) => s.setProvider)
   const mode = useThemeStore((s) => s.mode)
   const setMode = useThemeStore((s) => s.setMode)
 
