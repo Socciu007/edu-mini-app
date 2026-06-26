@@ -74,7 +74,31 @@
     "theme": "Theme",
     "themeLight": "Light",
     "themeDark": "Dark",
-    "themeSystem": "System"
+    "themeSystem": "System",
+    "loginTitle": "Sign in / Sign up",
+    "loginSubtitle": "View more info",
+    "loginButton": "Sign in now",
+    "favorite": "Favorites",
+    "aiBanner": {
+      "title": "AI Tutor 24/7",
+      "subtitle": "Ask anything, anytime",
+      "cta": "Try now"
+    },
+    "commonFunctions": "Common functions",
+    "subjects": "Subjects",
+    "exercises": "Exercises",
+    "lessons": "Lessons",
+    "exams": "Practice tests",
+    "otherFunctions": "Other functions",
+    "settings": "Settings",
+    "security": "Security",
+    "support": "Support",
+    "rate": "Rate",
+    "ai": "AI",
+    "footer": {
+      "support": "Support: 1900-xxxx | 8:00 - 22:00",
+      "copyright": "© 2024 Edu Mini App"
+    }
   },
   "errors": {
     "aiOffline": "AI is unreachable. Try again later.",

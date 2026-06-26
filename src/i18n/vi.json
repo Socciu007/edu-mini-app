@@ -69,7 +69,31 @@
     "theme": "Giao diện",
     "themeLight": "Sáng",
     "themeDark": "Tối",
-    "themeSystem": "Hệ thống"
+    "themeSystem": "Hệ thống",
+    "loginTitle": "Đăng nhập / Đăng ký",
+    "loginSubtitle": "Xem thêm thông tin",
+    "loginButton": "Đăng nhập ngay",
+    "favorite": "Yêu thích",
+    "aiBanner": {
+      "title": "Trợ lý AI 24/7",
+      "subtitle": "Hỏi đáp bất kỳ lúc nào",
+      "cta": "Dùng ngay"
+    },
+    "commonFunctions": "Chức năng thường dùng",
+    "subjects": "Môn học",
+    "exercises": "Bài tập",
+    "lessons": "Bài giảng",
+    "exams": "Thi thử",
+    "otherFunctions": "Chức năng khác",
+    "settings": "Cài đặt",
+    "security": "Bảo mật",
+    "support": "Hỗ trợ",
+    "rate": "Đánh giá",
+    "ai": "AI",
+    "footer": {
+      "support": "Hỗ trợ: 1900-xxxx | 8:00 - 22:00",
+      "copyright": "© 2024 Edu Mini App"
+    }
   },
   "errors": {
     "aiOffline": "Không kết nối được AI. Thử lại sau.",
