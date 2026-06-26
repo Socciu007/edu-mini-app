@@ -9,6 +9,16 @@
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
   <title>Mini App Name</title>
+  <script>
+    (function() {
+      try {
+        var stored = localStorage.getItem('edu-theme-v1');
+        var mode = stored ? JSON.parse(stored).state.mode : 'system';
+        var isDark = mode === 'dark' || (mode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        if (isDark) document.documentElement.classList.add('dark');
+      } catch (e) {}
+    })();
+  </script>
 </head>
 <body>
   <div id="app"></div>

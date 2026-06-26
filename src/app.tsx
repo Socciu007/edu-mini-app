@@ -4,6 +4,7 @@ import { Outlet, Route } from 'react-router-dom'
 import { AnimationRoutes, App, SnackbarProvider, ZMPRouter } from 'zmp-ui'
 
 import { TabBar } from './components/tab-bar'
+import { useThemeEffect } from './hooks/use-theme-effect'
 import ChatPage from './pages/chat'
 import ReviewPage from './pages/review'
 import SurveyPage from './pages/survey'
@@ -25,6 +26,7 @@ function ShellLayout() {
 }
 
 const MyApp = () => {
+  useThemeEffect()
   return (
     <App>
       <Suspense>
