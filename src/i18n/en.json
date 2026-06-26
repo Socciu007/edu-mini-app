@@ -70,7 +70,11 @@
     "about": "About",
     "aiStatus": "AI status",
     "aiReady": "Configured",
-    "aiNotConfigured": "Not configured"
+    "aiNotConfigured": "Not configured",
+    "theme": "Theme",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "themeSystem": "System"
   },
   "errors": {
     "aiOffline": "AI is unreachable. Try again later.",

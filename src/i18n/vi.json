@@ -70,7 +70,11 @@
     "about": "Giới thiệu",
     "aiStatus": "Trạng thái AI",
     "aiReady": "Đã cấu hình",
-    "aiNotConfigured": "Chưa cấu hình"
+    "aiNotConfigured": "Chưa cấu hình",
+    "theme": "Giao diện",
+    "themeLight": "Sáng",
+    "themeDark": "Tối",
+    "themeSystem": "Hệ thống"
   },
   "errors": {
     "aiOffline": "Không kết nối được AI. Thử lại sau.",
