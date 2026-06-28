@@ -63,7 +63,7 @@ export function FilePickerField({ label, files, onChange, maxFiles, maxSizeBytes
       <button
         type="button"
         onClick={() => inputRef.current?.click()}
-        className="self-start rounded-full border border-border text-text-secondary px-4 py-2 text-xs"
+        className="self-start bg-primary-foreground rounded-full border border-border text-text px-4 py-2 text-xs"
       >
         {t('survey.form.pickFile')}
       </button>

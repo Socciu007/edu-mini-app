@@ -19,7 +19,7 @@ export function TextField({ label, value, onChange, placeholder, maxLength, erro
         placeholder={placeholder}
         maxLength={maxLength}
         onChange={(e) => onChange(e.target.value)}
-        className="border border-border rounded-lg px-3 py-2 text-sm bg-primary-foreground"
+        className="border border-border text-text rounded-lg px-3 py-2 text-sm bg-primary-foreground"
       />
       {error ? <span className="text-xs text-danger">{error}</span> : null}
     </div>

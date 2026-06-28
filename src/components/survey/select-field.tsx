@@ -31,7 +31,7 @@ export function SelectField<V extends string | number>({
       <Listbox value={value} onChange={(v) => onChange(v as V)}>
         <div className="relative">
           <Listbox.Button className="relative w-full cursor-default border border-border rounded-lg bg-primary-foreground py-2 pl-3 pr-9 text-left text-sm focus:outline-none focus:ring-1 focus:ring-primary">
-            <span className={selected ? 'block truncate' : 'block truncate text-text-secondary'}>
+            <span className={selected ? 'block truncate text-text-secondary' : 'block truncate text-text-secondary'}>
               {selected ? selected.label : placeholder}
             </span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 text-text-secondary">
@@ -60,7 +60,7 @@ export function SelectField<V extends string | number>({
                   value={o.value}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-3 pr-9 ${
-                      active ? 'bg-primary text-primary-foreground' : 'text-text'
+                      active ? 'bg-secondary text-text' : 'text-text'
                     }`
                   }
                 >

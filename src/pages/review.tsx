@@ -24,26 +24,26 @@ export default function ReviewPage() {
   const messages = useChatStore((s) => s.messages)
   const asked = useChatStore((s) => s.stats.asked)
   const correct = useChatStore((s) => s.stats.correct)
-  const accuracy = asked > 0 ? `${Math.round((correct / asked) * 100)}%` : '—'
+  const accuracy = asked > 0 ? `${Math.round((correct / asked) * 100)}%` : '-'
   const nav = useNavigate()
 
   return (
-    <div className="min-h-screen pb-16">
+    <div className="pb-16">
       <PageHeader title={t('review.title')} onBack={() => nav(-1)} />
 
       <section className="p-4">
         <h2 className="text-sm font-medium text-text-secondary mb-2">{t('review.stats')}</h2>
         <div className="grid grid-cols-3 gap-2 text-center">
-          <div className="rounded-lg border border-border p-3">
-            <div className="text-xs text-text-subtle">{t('review.asked')}</div>
+          <div className="rounded-lg border border-border p-3 bg-accent-soft">
+            <div className="text-xs text-text">{t('review.asked')}</div>
             <div className="text-2xl font-bold">{asked}</div>
           </div>
-          <div className="rounded-lg border border-border p-3">
-            <div className="text-xs text-text-subtle">{t('review.correct')}</div>
+          <div className="rounded-lg border border-border p-3 bg-accent-soft">
+            <div className="text-xs text-text">{t('review.correct')}</div>
             <div className="text-2xl font-bold">{correct}</div>
           </div>
-          <div className="rounded-lg border border-border p-3">
-            <div className="text-xs text-text-subtle">{t('review.accuracy')}</div>
+          <div className="rounded-lg border border-border p-3 bg-accent-soft">
+            <div className="text-xs text-text">{t('review.accuracy')}</div>
             <div className="text-2xl font-bold">{accuracy}</div>
           </div>
         </div>

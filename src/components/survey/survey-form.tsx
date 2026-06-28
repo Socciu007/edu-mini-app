@@ -147,7 +147,7 @@ export function SurveyForm({ onSubmit, isSubmitting }: Props) {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full rounded-full bg-primary text-primary-foreground py-3 text-sm font-medium disabled:opacity-50"
+        className="w-full border border-border rounded-full bg-primary text-primary-foreground py-3 text-sm font-medium disabled:opacity-50"
       >
         {isSubmitting ? t('survey.form.submitting') : t('survey.form.submit')}
       </button>

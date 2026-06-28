@@ -21,7 +21,7 @@ export default function SurveyPage() {
   }
 
   return (
-    <div className="min-h-screen pb-16">
+    <div className="pb-16">
       <PageHeader title={t('survey.headerTitle')} onBack={() => nav('/')} />
       <SurveyForm onSubmit={handleSubmit} isSubmitting={isSubmitting} />
       {response ? <ResponsePanel response={response} /> : null}

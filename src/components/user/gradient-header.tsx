@@ -1,11 +1,12 @@
-import React from 'react';
-import { UserAvatar } from './user-avatar';
+import React from 'react'
+
+import { UserAvatar } from './user-avatar'
 
 interface Props {
-  title: string;
-  subtitle: string;
-  buttonText: string;
-  onButtonClick: () => void;
+  title: string
+  subtitle: string
+  buttonText: string
+  onButtonClick: () => void
 }
 
 export function GradientHeader({ title, subtitle, buttonText, onButtonClick }: Props) {
@@ -23,10 +24,10 @@ export function GradientHeader({ title, subtitle, buttonText, onButtonClick }: P
       </div>
       <button
         onClick={onButtonClick}
-        className="w-full bg-white text-primary font-medium py-2 rounded-lg"
+        className="w-full bg-white text-primary font-medium py-2 rounded-lg border border-border"
       >
         {buttonText}
       </button>
     </header>
-  );
+  )
 }

@@ -1,16 +1,16 @@
-import React from 'react';
+import React from 'react'
 
 interface Props {
-  label: string;
-  Icon: React.FC<React.SVGProps<SVGSVGElement>>;
-  onClick?: () => void;
+  label: string
+  Icon: React.FC<React.SVGProps<SVGSVGElement>>
+  onClick?: () => void
 }
 
 export function FunctionTile({ label, Icon, onClick }: Props) {
   return (
-    <button onClick={onClick} className="flex flex-col items-center gap-1">
+    <button onClick={onClick} className="flex flex-col items-center gap-1 bg-accent-soft p-1 border-none">
       <Icon className="w-7 h-7 text-primary" />
       <span className="text-xs text-text-secondary">{label}</span>
     </button>
-  );
+  )
 }

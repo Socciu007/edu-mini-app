@@ -1,11 +1,11 @@
-import React from 'react';
+import React from 'react'
 
 interface Props {
-  title: string;
-  subtitle: string;
-  cta: string;
-  Icon: React.FC<React.SVGProps<SVGSVGElement>>;
-  onCtaClick: () => void;
+  title: string
+  subtitle: string
+  cta: string
+  Icon: React.FC<React.SVGProps<SVGSVGElement>>
+  onCtaClick: () => void
 }
 
 export function InfoBanner({ title, subtitle, cta, Icon, onCtaClick }: Props) {
@@ -21,10 +21,10 @@ export function InfoBanner({ title, subtitle, cta, Icon, onCtaClick }: Props) {
       </div>
       <button
         onClick={onCtaClick}
-        className="bg-white text-primary font-medium px-3 py-1 rounded-lg text-sm"
+        className="bg-white text-primary font-medium px-3 py-1 rounded-lg text-sm border border-border"
       >
         {cta}
       </button>
     </div>
-  );
+  )
 }
