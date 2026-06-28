@@ -13,8 +13,6 @@ interface Props {
   error?: string
 }
 
-const MAX_MB = 10
-
 export function FilePickerField({ label, files, onChange, maxFiles, maxSizeBytes, accept, hint, error }: Props) {
   const { t } = useTranslation()
   const inputRef = useRef<HTMLInputElement>(null)
@@ -90,7 +88,6 @@ export function FilePickerField({ label, files, onChange, maxFiles, maxSizeBytes
         ))}
       </ul>
       {shownError ? <span className="text-xs text-danger">{shownError}</span> : null}
-      <span className="hidden">{MAX_MB}</span>
     </div>
   )
 }
