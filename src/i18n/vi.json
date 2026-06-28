@@ -29,17 +29,36 @@
   "survey": {
     "headerTitle": "Khảo sát",
     "title": "Khảo sát",
-    "description": "Trả lời 5 câu hỏi ngẫu nhiên. Mỗi câu có 30 giây.",
-    "start": "Bắt đầu",
-    "progress": "Câu {{current}} / {{total}}",
-    "timeLeft": "{{seconds}}s",
-    "skip": "Bỏ qua",
-    "correct": "Đúng",
-    "incorrect": "Sai",
-    "scoreTitle": "Kết quả",
-    "score": "Bạn đúng {{correct}} / {{total}}",
-    "retry": "Làm lại",
-    "backToChat": "Về Chat"
+    "form": {
+      "subject": "Môn học",
+      "grade": "Lớp",
+      "lesson": "Bài học",
+      "difficulty": "Độ khó",
+      "documents": "Tài liệu",
+      "documentsHint": "PDF, DOCX, PNG, JPG. Tối đa 3 file, 10MB mỗi file.",
+      "submit": "Gửi khảo sát",
+      "submitting": "Đang gửi...",
+      "pickFile": "Chọn file",
+      "remove": "Xóa",
+      "filesCount": "{{count}}/3 file đã chọn",
+      "errors": {
+        "subjectRequired": "Vui lòng chọn môn học",
+        "gradeRequired": "Vui lòng chọn lớp",
+        "lessonRequired": "Vui lòng nhập tên bài học",
+        "lessonTooShort": "Tên bài học tối thiểu 3 ký tự",
+        "difficultyRequired": "Vui lòng chọn độ khó",
+        "documentsRequired": "Vui lòng tải ít nhất 1 tài liệu",
+        "tooManyFiles": "Tối đa 3 file",
+        "fileTooLarge": "File {{name}} vượt quá 10MB",
+        "fileTypeInvalid": "Định dạng {{name}} không được hỗ trợ"
+      },
+      "toastSuccess": "Đã gửi khảo sát thành công",
+      "toastError": "Gửi thất bại. Vui lòng thử lại.",
+      "responseTitle": "Kết quả từ máy chủ",
+      "responseSurveyId": "Mã khảo sát",
+      "responseStatus": "Trạng thái",
+      "responseReceivedAt": "Thời gian"
+    }
   },
   "review": {
     "headerTitle": "Đánh giá",
