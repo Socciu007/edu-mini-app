@@ -13,6 +13,14 @@ describe('SurveyForm', () => {
     useSettingsStore.setState({ language: 'vi' })
   })
 
+  // SelectFields render as a button trigger; clicking opens a popover with role="option" items.
+  // The options render inside a Transition, so use findByRole to wait for them.
+  async function pickOption(triggerIndex: number, optionName: string | RegExp) {
+    fireEvent.click(screen.getAllByRole('button')[triggerIndex])
+    const option = await screen.findByRole('option', { name: optionName })
+    fireEvent.click(option)
+  }
+
   it('renders all five field labels', () => {
     render(<SurveyForm onSubmit={vi.fn()} isSubmitting={false} />)
     expect(screen.getByText('Môn học')).toBeInTheDocument()
@@ -36,10 +44,12 @@ describe('SurveyForm', () => {
     const onSubmit = vi.fn().mockResolvedValue(null)
     render(<SurveyForm onSubmit={onSubmit} isSubmitting={false} />)
 
-    fireEvent.change(screen.getAllByRole('combobox')[0], { target: { value: 'math' } })
-    fireEvent.change(screen.getAllByRole('combobox')[1], { target: { value: '10' } })
+    // Trigger order in DOM: [subject, grade, difficulty, file-pick, submit]
+    // The first three role=button elements are the SelectField triggers.
+    await pickOption(0, 'Toán')
+    await pickOption(1, '10')
     fireEvent.change(screen.getByRole('textbox'), { target: { value: 'Quadratic' } })
-    fireEvent.change(screen.getAllByRole('combobox')[2], { target: { value: 'medium' } })
+    await pickOption(2, 'Đọc hiểu')
 
     const file = new File([new Uint8Array(10)], 'a.pdf', { type: 'application/pdf' })
     const input = screen.getByLabelText(/Chọn file/i) as HTMLInputElement
@@ -54,7 +64,7 @@ describe('SurveyForm', () => {
     expect(arg.subject).toBe('math')
     expect(arg.grade).toBe(10)
     expect(arg.lesson).toBe('Quadratic')
-    expect(arg.difficulty).toBe('medium')
+    expect(arg.difficulty).toBe(1)
     expect(arg.documents).toHaveLength(1)
     expect(arg.documents[0].name).toBe('a.pdf')
   })
@@ -68,10 +78,10 @@ describe('SurveyForm', () => {
     const onSubmit = vi.fn().mockResolvedValue({} as never)
     render(<SurveyForm onSubmit={onSubmit} isSubmitting={false} />)
 
-    fireEvent.change(screen.getAllByRole('combobox')[0], { target: { value: 'math' } })
-    fireEvent.change(screen.getAllByRole('combobox')[1], { target: { value: '10' } })
+    await pickOption(0, 'Toán')
+    await pickOption(1, '10')
     fireEvent.change(screen.getByRole('textbox'), { target: { value: 'Quadratic' } })
-    fireEvent.change(screen.getAllByRole('combobox')[2], { target: { value: 'medium' } })
+    await pickOption(2, 'Đọc hiểu')
     const file = new File([new Uint8Array(10)], 'a.pdf', { type: 'application/pdf' })
     const input = screen.getByLabelText(/Chọn file/i) as HTMLInputElement
     fireEvent.change(input, { target: { files: [file] } })

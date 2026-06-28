@@ -17,24 +17,27 @@ describe('SelectField', () => {
     { value: 11, label: 'Eleven' },
   ]
 
-  it('renders label and options', () => {
+  it('renders label and trigger; options are hidden until opened', () => {
     render(<SelectField label="Pick" value="" options={stringOptions} onChange={() => {}} />)
     expect(screen.getByText('Pick')).toBeInTheDocument()
-    expect(screen.getByRole('option', { name: 'A' })).toBeInTheDocument()
-    expect(screen.getByRole('option', { name: 'B' })).toBeInTheDocument()
+    // Trigger is a button; options exist in DOM but are not visible until popover opens.
+    expect(screen.getByRole('button')).toBeInTheDocument()
+    expect(screen.queryByRole('option', { name: 'A' })).not.toBeInTheDocument()
   })
 
-  it('calls onChange with string value when V is string', () => {
+  it('calls onChange with string value when an option is selected', () => {
     const onChange = vi.fn()
     render(<SelectField label="Pick" value="" options={stringOptions} onChange={onChange} />)
-    fireEvent.change(screen.getByRole('combobox'), { target: { value: 'b' } })
+    fireEvent.click(screen.getByRole('button'))
+    fireEvent.click(screen.getByRole('option', { name: 'B' }))
     expect(onChange).toHaveBeenCalledWith('b')
   })
 
-  it('coerces numeric value back to number when V is number', () => {
+  it('passes numeric value through (no string coercion) when V is number', () => {
     const onChange = vi.fn()
     render(<SelectField<number> label="Grade" value={10} options={numberOptions} onChange={onChange} />)
-    fireEvent.change(screen.getByRole('combobox'), { target: { value: '11' } })
+    fireEvent.click(screen.getByRole('button'))
+    fireEvent.click(screen.getByRole('option', { name: 'Eleven' }))
     expect(onChange).toHaveBeenCalledWith(11)
   })
 

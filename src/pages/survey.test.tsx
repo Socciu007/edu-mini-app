@@ -29,6 +29,14 @@ describe('SurveyPage', () => {
     vi.clearAllMocks()
   })
 
+  // Locate the Listbox trigger whose sibling <label> matches, then pick an option by visible name.
+  async function pickOption(label: string, optionName: string | RegExp) {
+    const trigger = screen.getByText(label).parentElement!.querySelector('button')!
+    fireEvent.click(trigger)
+    const option = await screen.findByRole('option', { name: optionName })
+    fireEvent.click(option)
+  }
+
   it('renders header and form', () => {
     render(
       <MemoryRouter>
@@ -54,10 +62,10 @@ describe('SurveyPage', () => {
       </MemoryRouter>,
     )
 
-    fireEvent.change(screen.getAllByRole('combobox')[0], { target: { value: 'math' } })
-    fireEvent.change(screen.getAllByRole('combobox')[1], { target: { value: '10' } })
+    await pickOption('Môn học', 'Toán')
+    await pickOption('Lớp', '10')
     fireEvent.change(screen.getByRole('textbox'), { target: { value: 'Quadratic' } })
-    fireEvent.change(screen.getAllByRole('combobox')[2], { target: { value: 'medium' } })
+    await pickOption('Độ khó', 'Đọc hiểu')
     const file = new File([new Uint8Array(10)], 'a.pdf', { type: 'application/pdf' })
     const input = screen.getByLabelText(/Chọn file/i) as HTMLInputElement
     fireEvent.change(input, { target: { files: [file] } })

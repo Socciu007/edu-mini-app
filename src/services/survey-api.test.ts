@@ -8,7 +8,7 @@ const baseReq: SurveyRequest = {
   subject: 'math',
   grade: 10,
   lesson: 'Quadratic equations',
-  difficulty: 'medium',
+  difficulty: 1,
   documents: [],
 }
 

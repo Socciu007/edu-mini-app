@@ -33,7 +33,7 @@ const validForm = {
   subject: 'math' as const,
   grade: 10 as const,
   lesson: 'Quadratic equations',
-  difficulty: 'medium' as const,
+  difficulty: 1 as const,
   documents: [new File(['content'], 'homework.pdf', { type: 'application/pdf' })],
 }
 
