@@ -78,7 +78,7 @@ export default function UserPage() {
       <section className="px-4 mt-6">
         <h2 className="text-sm font-semibold text-text mb-3">{t('user.otherFunctions')}</h2>
         <div className="bg-surface rounded-xl p-4 grid grid-cols-4 gap-4">
-          <FunctionTile label={t('user.settings')} Icon={SettingsIcon} />
+          <FunctionTile label={t('user.settings')} Icon={SettingsIcon} onClick={() => nav('/settings')} />
           <FunctionTile label={t('user.language')} Icon={GlobeIcon} />
           <FunctionTile
             label={t('user.theme')}

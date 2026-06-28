@@ -118,6 +118,25 @@
       "copyright": "© 2024 Edu Mini App"
     }
   },
+  "settings": {
+    "title": "Cài đặt",
+    "sectionGeneral": "Chung",
+    "sectionInfo": "Thông tin",
+    "language": "Ngôn ngữ",
+    "theme": "Giao diện",
+    "reset": "Làm mới cuộc trò chuyện",
+    "aiStatus": "Trạng thái AI",
+    "aiReady": "Đã cấu hình",
+    "aiNotConfigured": "Chưa cấu hình",
+    "about": "Giới thiệu",
+    "security": "Bảo mật",
+    "support": "Hỗ trợ",
+    "supportValue": "1900-xxxx",
+    "rate": "Đánh giá ứng dụng",
+    "footer": {
+      "copyright": "© 2024 Edu Mini App"
+    }
+  },
   "errors": {
     "aiOffline": "Không kết nối được AI. Thử lại sau.",
     "aiNotConfigured": "AI chưa được cấu hình. Dùng ngân hàng câu hỏi cục bộ.",

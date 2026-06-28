@@ -1,0 +1,123 @@
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+
+import BookIcon from '@/static/icons/book.svg?react'
+import BotIcon from '@/static/icons/bot.svg?react'
+import GlobeIcon from '@/static/icons/globe.svg?react'
+import HelpIcon from '@/static/icons/help.svg?react'
+import LockIcon from '@/static/icons/lock.svg?react'
+import RateIcon from '@/static/icons/rate.svg?react'
+import RefreshIcon from '@/static/icons/refresh.svg?react'
+import ThemeIcon from '@/static/icons/theme.svg?react'
+
+import { PageHeader } from '../components/page-header'
+import { useTranslation } from '../i18n/use-translation'
+import { useChatStore } from '../stores/chat-store'
+import { type Language, useSettingsStore } from '../stores/settings-store'
+import { type ThemeMode, useThemeStore } from '../stores/theme-store'
+
+const LANGUAGES: Language[] = ['vi', 'en']
+const THEME_MODES: ThemeMode[] = ['light', 'dark', 'system']
+
+interface RowProps {
+  Icon: React.FC<React.SVGProps<SVGSVGElement>>
+  label: string
+  value?: string
+  onClick?: () => void
+  danger?: boolean
+}
+
+function SettingRow({ Icon, label, value, onClick, danger }: RowProps) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`flex items-center gap-3 w-full px-4 py-3 bg-surface text-left border-none ${
+        danger ? 'text-danger' : 'text-text'
+      }`}
+    >
+      <Icon className={`w-5 h-5 ${danger ? 'text-danger' : 'text-primary'}`} />
+      <span className="flex-1 text-sm">{label}</span>
+      {value ? <span className="text-xs text-text-secondary">{value}</span> : null}
+      {onClick ? (
+        <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" className="w-4 h-4 text-text-subtle">
+          <path
+            fillRule="evenodd"
+            d="M7.21 14.77a.75.75 0 01.02-1.06L10.94 10 7.23 6.29a.75.75 0 111.04-1.08l4.25 4.25a.75.75 0 010 1.08l-4.25 4.25a.75.75 0 01-1.06-.02z"
+            clipRule="evenodd"
+          />
+        </svg>
+      ) : null}
+    </button>
+  )
+}
+
+export default function SettingsPage() {
+  const { t } = useTranslation()
+  const nav = useNavigate()
+  const language = useSettingsStore((s) => s.language)
+  const setLanguage = useSettingsStore((s) => s.setLanguage)
+  const mode = useThemeStore((s) => s.mode)
+  const setMode = useThemeStore((s) => s.setMode)
+  const resetChat = useChatStore((s) => s.reset)
+  const aiReady = Boolean(import.meta.env.VITE_AI_API_KEY)
+
+  function cycleLanguage() {
+    const next = LANGUAGES[(LANGUAGES.indexOf(language) + 1) % LANGUAGES.length]
+    setLanguage(next)
+  }
+
+  function cycleTheme() {
+    const next = THEME_MODES[(THEME_MODES.indexOf(mode) + 1) % THEME_MODES.length]
+    setMode(next)
+  }
+
+  function themeLabel(m: ThemeMode): string {
+    if (m === 'light') return t('user.themeLight')
+    if (m === 'dark') return t('user.themeDark')
+    return t('user.themeSystem')
+  }
+
+  function languageLabel(l: Language): string {
+    return l === 'vi' ? t('user.languageVi') : t('user.languageEn')
+  }
+
+  return (
+    <div className="pb-16">
+      <PageHeader title={t('settings.title')} onBack={() => nav(-1)} />
+
+      <section className="px-4 mt-4">
+        <h2 className="text-xs font-semibold text-text-secondary uppercase mb-2">{t('settings.sectionGeneral')}</h2>
+        <div className="bg-surface rounded-xl overflow-hidden divide-y divide-border">
+          <SettingRow
+            Icon={GlobeIcon}
+            label={t('settings.language')}
+            value={languageLabel(language)}
+            onClick={cycleLanguage}
+          />
+          <SettingRow Icon={ThemeIcon} label={t('settings.theme')} value={themeLabel(mode)} onClick={cycleTheme} />
+          <SettingRow Icon={RefreshIcon} label={t('settings.reset')} danger onClick={() => resetChat()} />
+        </div>
+      </section>
+
+      <section className="px-4 mt-6">
+        <h2 className="text-xs font-semibold text-text-secondary uppercase mb-2">{t('settings.sectionInfo')}</h2>
+        <div className="bg-surface rounded-xl overflow-hidden divide-y divide-border">
+          <SettingRow
+            Icon={BotIcon}
+            label={t('settings.aiStatus')}
+            value={aiReady ? t('settings.aiReady') : t('settings.aiNotConfigured')}
+          />
+          <SettingRow Icon={BookIcon} label={t('settings.about')} value="v1.0.0" />
+          <SettingRow Icon={LockIcon} label={t('settings.security')} />
+          <SettingRow Icon={HelpIcon} label={t('settings.support')} value={t('settings.supportValue')} />
+          <SettingRow Icon={RateIcon} label={t('settings.rate')} />
+        </div>
+      </section>
+
+      <footer className="px-4 mt-6 pb-8 text-xs text-text-subtle text-center">
+        <p>{t('settings.footer.copyright')}</p>
+      </footer>
+    </div>
+  )
+}

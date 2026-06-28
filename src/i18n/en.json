@@ -123,6 +123,25 @@
       "copyright": "© 2024 Edu Mini App"
     }
   },
+  "settings": {
+    "title": "Settings",
+    "sectionGeneral": "General",
+    "sectionInfo": "About",
+    "language": "Language",
+    "theme": "Theme",
+    "reset": "Reset conversation",
+    "aiStatus": "AI status",
+    "aiReady": "Configured",
+    "aiNotConfigured": "Not configured",
+    "about": "About",
+    "security": "Security",
+    "support": "Support",
+    "supportValue": "1900-xxxx",
+    "rate": "Rate the app",
+    "footer": {
+      "copyright": "© 2024 Edu Mini App"
+    }
+  },
   "errors": {
     "aiOffline": "AI is unreachable. Try again later.",
     "aiNotConfigured": "AI is not configured. Using local question bank.",

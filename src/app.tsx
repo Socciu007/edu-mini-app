@@ -7,6 +7,7 @@ import { TabBar } from './components/tab-bar'
 import { useThemeEffect } from './hooks/use-theme-effect'
 import ChatPage from './pages/chat'
 import ReviewPage from './pages/review'
+import SettingsPage from './pages/settings'
 import SurveyPage from './pages/survey'
 import UserPage from './pages/user'
 
@@ -39,6 +40,7 @@ const MyApp = () => {
                   <Route path="/survey" element={<SurveyPage />} />
                   <Route path="/review" element={<ReviewPage />} />
                   <Route path="/user" element={<UserPage />} />
+                  <Route path="/settings" element={<SettingsPage />} />
                 </Route>
               </Routes>
             </ZMPRouter>
