@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react'
 
 interface Props {
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-  placeholder?: string;
-  maxLength?: number;
-  error?: string;
+  label: string
+  value: string
+  onChange: (value: string) => void
+  placeholder?: string
+  maxLength?: number
+  error?: string
 }
 
 export function TextField({ label, value, onChange, placeholder, maxLength, error }: Props) {
@@ -23,5 +23,5 @@ export function TextField({ label, value, onChange, placeholder, maxLength, erro
       />
       {error ? <span className="text-xs text-danger">{error}</span> : null}
     </div>
-  );
+  )
 }

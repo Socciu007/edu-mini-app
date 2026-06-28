@@ -1,18 +1,19 @@
-import React from 'react';
-import { useTranslation } from '../../i18n/use-translation';
-import { useSettingsStore } from '../../stores/settings-store';
-import type { SurveyResponse } from '../../services/survey-api';
+import React from 'react'
+
+import { useTranslation } from '../../i18n/use-translation'
+import type { SurveyResponse } from '../../services/survey-api'
+import { useSettingsStore } from '../../stores/settings-store'
 
 interface Props {
-  response: SurveyResponse;
+  response: SurveyResponse
 }
 
 export function ResponsePanel({ response }: Props) {
-  const { t } = useTranslation();
-  const language = useSettingsStore((s) => s.language);
+  const { t } = useTranslation()
+  const language = useSettingsStore((s) => s.language)
 
-  const dateText = new Date(response.receivedAt).toLocaleString(language === 'vi' ? 'vi-VN' : 'en-US');
-  const statusClass = response.status === 'accepted' ? 'text-success' : 'text-warning';
+  const dateText = new Date(response.receivedAt).toLocaleString(language === 'vi' ? 'vi-VN' : 'en-US')
+  const statusClass = response.status === 'accepted' ? 'text-success' : 'text-warning'
 
   return (
     <section
@@ -31,5 +32,5 @@ export function ResponsePanel({ response }: Props) {
         <dd>{dateText}</dd>
       </dl>
     </section>
-  );
+  )
 }

@@ -1,16 +1,16 @@
-import React from 'react';
+import React from 'react'
 
 interface Option<V extends string | number> {
-  value: V;
-  label: string;
+  value: V
+  label: string
 }
 
 interface Props<V extends string | number> {
-  label: string;
-  value: V | '';
-  options: Option<V>[];
-  onChange: (value: V) => void;
-  error?: string;
+  label: string
+  value: V | ''
+  options: Option<V>[]
+  onChange: (value: V) => void
+  error?: string
 }
 
 export function SelectField<V extends string | number>({ label, value, options, onChange, error }: Props<V>) {
@@ -18,7 +18,7 @@ export function SelectField<V extends string | number>({ label, value, options, 
   // selected value as a string. We detect numeric V via the first option's
   // runtime type and coerce the string back to a number so callers receive
   // the original V type intact.
-  const isNumeric = typeof options[0]?.value === 'number';
+  const isNumeric = typeof options[0]?.value === 'number'
 
   return (
     <div className="flex flex-col gap-1">
@@ -26,9 +26,9 @@ export function SelectField<V extends string | number>({ label, value, options, 
       <select
         value={value}
         onChange={(e) => {
-          const raw = e.target.value;
-          const v = (isNumeric ? Number(raw) : raw) as unknown as V;
-          onChange(v);
+          const raw = e.target.value
+          const v = (isNumeric ? Number(raw) : raw) as unknown as V
+          onChange(v)
         }}
         className="border border-border rounded-lg px-3 py-2 text-sm bg-background"
       >
@@ -43,5 +43,5 @@ export function SelectField<V extends string | number>({ label, value, options, 
       </select>
       {error ? <span className="text-xs text-danger">{error}</span> : null}
     </div>
-  );
+  )
 }

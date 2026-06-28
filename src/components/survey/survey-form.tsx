@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { SelectField } from './select-field';
-import { TextField } from './text-field';
-import { FilePickerField } from './file-picker-field';
-import { useTranslation } from '../../i18n/use-translation';
-import { GRADES, type Grade } from '../../constants/grades';
-import { SUBJECTS } from '../../constants/subjects';
-import type { Difficulty, SubjectId } from '../../providers/types';
-import type { SurveyRequest, SurveyResponse } from '../../services/survey-api';
+import React, { useState } from 'react'
+
+import { type Grade, GRADES } from '../../constants/grades'
+import { SUBJECTS } from '../../constants/subjects'
+import { useTranslation } from '../../i18n/use-translation'
+import type { Difficulty, SubjectId } from '../../providers/types'
+import type { SurveyRequest, SurveyResponse } from '../../services/survey-api'
+import { FilePickerField } from './file-picker-field'
+import { SelectField } from './select-field'
+import { TextField } from './text-field'
 
 interface Props {
   /**
@@ -14,8 +15,8 @@ interface Props {
    * MUST return a non-null SurveyResponse on success and null on failure —
    * the form resets only when this returns a truthy value.
    */
-  onSubmit: (req: SurveyRequest) => Promise<SurveyResponse | null> | SurveyResponse | null;
-  isSubmitting: boolean;
+  onSubmit: (req: SurveyRequest) => Promise<SurveyResponse | null> | SurveyResponse | null
+  isSubmitting: boolean
 }
 
 const ACCEPTED_MIME = [
@@ -24,19 +25,19 @@ const ACCEPTED_MIME = [
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
   'image/png',
   'image/jpeg',
-];
-const MAX_FILES = 3;
-const MAX_SIZE_BYTES = 10 * 1024 * 1024;
+]
+const MAX_FILES = 3
+const MAX_SIZE_BYTES = 10 * 1024 * 1024
 
 interface FormState {
-  subject: SubjectId | '';
-  grade: Grade | '';
-  lesson: string;
-  difficulty: Difficulty | '';
-  documents: File[];
+  subject: SubjectId | ''
+  grade: Grade | ''
+  lesson: string
+  difficulty: Difficulty | ''
+  documents: File[]
 }
 
-const EMPTY: FormState = { subject: '', grade: '', lesson: '', difficulty: '', documents: [] };
+const EMPTY: FormState = { subject: '', grade: '', lesson: '', difficulty: '', documents: [] }
 
 type ErrorKey =
   | 'subjectRequired'
@@ -44,41 +45,41 @@ type ErrorKey =
   | 'lessonRequired'
   | 'lessonTooShort'
   | 'difficultyRequired'
-  | 'documentsRequired';
+  | 'documentsRequired'
 
 export function SurveyForm({ onSubmit, isSubmitting }: Props) {
-  const { t, language } = useTranslation();
-  const [form, setForm] = useState<FormState>(EMPTY);
-  const [errors, setErrors] = useState<Partial<Record<keyof FormState, ErrorKey>>>({});
+  const { t, language } = useTranslation()
+  const [form, setForm] = useState<FormState>(EMPTY)
+  const [errors, setErrors] = useState<Partial<Record<keyof FormState, ErrorKey>>>({})
 
   function validate(state: FormState) {
-    const e: Partial<Record<keyof FormState, ErrorKey>> = {};
-    if (!state.subject) e.subject = 'subjectRequired';
-    if (!state.grade) e.grade = 'gradeRequired';
-    if (!state.lesson.trim()) e.lesson = 'lessonRequired';
-    else if (state.lesson.trim().length < 3) e.lesson = 'lessonTooShort';
-    if (!state.difficulty) e.difficulty = 'difficultyRequired';
-    if (state.documents.length < 1) e.documents = 'documentsRequired';
-    return e;
+    const e: Partial<Record<keyof FormState, ErrorKey>> = {}
+    if (!state.subject) e.subject = 'subjectRequired'
+    if (!state.grade) e.grade = 'gradeRequired'
+    if (!state.lesson.trim()) e.lesson = 'lessonRequired'
+    else if (state.lesson.trim().length < 3) e.lesson = 'lessonTooShort'
+    if (!state.difficulty) e.difficulty = 'difficultyRequired'
+    if (state.documents.length < 1) e.documents = 'documentsRequired'
+    return e
   }
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
-    setForm((f) => ({ ...f, [key]: value }));
+    setForm((f) => ({ ...f, [key]: value }))
     if (errors[key]) {
       setErrors((e) => {
-        const next = { ...e };
-        delete next[key];
-        return next;
-      });
+        const next = { ...e }
+        delete next[key]
+        return next
+      })
     }
   }
 
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    const e2 = validate(form);
+    e.preventDefault()
+    const e2 = validate(form)
     if (Object.keys(e2).length > 0) {
-      setErrors(e2);
-      return;
+      setErrors(e2)
+      return
     }
     const req: SurveyRequest = {
       subject: form.subject as SubjectId,
@@ -86,21 +87,21 @@ export function SurveyForm({ onSubmit, isSubmitting }: Props) {
       lesson: form.lesson.trim(),
       difficulty: form.difficulty as Difficulty,
       documents: form.documents,
-    };
-    const result = await onSubmit(req);
+    }
+    const result = await onSubmit(req)
     if (result) {
-      setForm(EMPTY);
-      setErrors({});
+      setForm(EMPTY)
+      setErrors({})
     }
   }
 
-  const subjectOptions = SUBJECTS.map((s) => ({ value: s.id, label: s.name[language] }));
-  const gradeOptions = GRADES.map((g) => ({ value: g, label: String(g) }));
+  const subjectOptions = SUBJECTS.map((s) => ({ value: s.id, label: s.name[language] }))
+  const gradeOptions = GRADES.map((g) => ({ value: g, label: String(g) }))
   const difficultyOptions: { value: Difficulty; label: string }[] = [
     { value: 'easy', label: t('survey.form.easy') },
     { value: 'medium', label: t('survey.form.medium') },
     { value: 'hard', label: t('survey.form.hard') },
-  ];
+  ]
 
   return (
     <form onSubmit={handleSubmit} className="p-4 space-y-4">
@@ -150,5 +151,5 @@ export function SurveyForm({ onSubmit, isSubmitting }: Props) {
         {isSubmitting ? t('survey.form.submitting') : t('survey.form.submit')}
       </button>
     </form>
-  );
+  )
 }

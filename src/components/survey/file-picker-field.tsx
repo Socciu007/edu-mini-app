@@ -1,57 +1,49 @@
-import React, { useRef, useState } from 'react';
-import { useTranslation } from '../../i18n/use-translation';
+import React, { useRef, useState } from 'react'
+
+import { useTranslation } from '../../i18n/use-translation'
 
 interface Props {
-  label: string;
-  files: File[];
-  onChange: (files: File[]) => void;
-  maxFiles: number;
-  maxSizeBytes: number;
-  accept: string[];
-  hint?: string;
-  error?: string;
+  label: string
+  files: File[]
+  onChange: (files: File[]) => void
+  maxFiles: number
+  maxSizeBytes: number
+  accept: string[]
+  hint?: string
+  error?: string
 }
 
-const MAX_MB = 10;
+const MAX_MB = 10
 
-export function FilePickerField({
-  label,
-  files,
-  onChange,
-  maxFiles,
-  maxSizeBytes,
-  accept,
-  hint,
-  error,
-}: Props) {
-  const { t } = useTranslation();
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [localError, setLocalError] = useState<string | null>(null);
+export function FilePickerField({ label, files, onChange, maxFiles, maxSizeBytes, accept, hint, error }: Props) {
+  const { t } = useTranslation()
+  const inputRef = useRef<HTMLInputElement>(null)
+  const [localError, setLocalError] = useState<string | null>(null)
 
-  const shownError = error ?? localError;
+  const shownError = error ?? localError
 
   function handlePick(next: FileList | null) {
-    if (!next || next.length === 0) return;
-    const incoming = Array.from(next);
+    if (!next || next.length === 0) return
+    const incoming = Array.from(next)
 
     if (files.length + incoming.length > maxFiles) {
-      setLocalError(t('survey.form.errors.tooManyFiles'));
-      return;
+      setLocalError(t('survey.form.errors.tooManyFiles'))
+      return
     }
 
     for (const f of incoming) {
       if (f.size > maxSizeBytes) {
-        setLocalError(t('survey.form.errors.fileTooLarge', { name: f.name }));
-        return;
+        setLocalError(t('survey.form.errors.fileTooLarge', { name: f.name }))
+        return
       }
       if (!accept.includes(f.type)) {
-        setLocalError(t('survey.form.errors.fileTypeInvalid', { name: f.name }));
-        return;
+        setLocalError(t('survey.form.errors.fileTypeInvalid', { name: f.name }))
+        return
       }
     }
 
-    setLocalError(null);
-    onChange([...files, ...incoming]);
+    setLocalError(null)
+    onChange([...files, ...incoming])
   }
 
   return (
@@ -64,8 +56,8 @@ export function FilePickerField({
         multiple
         accept={accept.join(',')}
         onChange={(e) => {
-          handlePick(e.target.files);
-          e.target.value = '';
+          handlePick(e.target.files)
+          e.target.value = ''
         }}
         className="hidden"
         aria-label={t('survey.form.pickFile')}
@@ -77,9 +69,7 @@ export function FilePickerField({
       >
         {t('survey.form.pickFile')}
       </button>
-      <span className="text-xs text-text-subtle">
-        {t('survey.form.filesCount', { count: files.length })}
-      </span>
+      <span className="text-xs text-text-subtle">{t('survey.form.filesCount', { count: files.length })}</span>
       <ul className="flex flex-col gap-1">
         {files.map((f, idx) => (
           <li
@@ -102,5 +92,5 @@ export function FilePickerField({
       {shownError ? <span className="text-xs text-danger">{shownError}</span> : null}
       <span className="hidden">{MAX_MB}</span>
     </div>
-  );
+  )
 }
