@@ -1,6 +1,7 @@
 import type { SubjectId, Difficulty } from '../providers/types';
+import { type Grade } from '../constants/grades';
 
-export type Grade = 10 | 11 | 12;
+export type { Grade };
 
 export interface SurveyRequest {
   subject: SubjectId;
@@ -27,7 +28,7 @@ export class SurveyApiError extends Error {
 }
 
 const MOCK_DELAY_MS = 1200;
-const FAILURE_RATE = 0.05; // 5% — used only in tests by stubbing Math.random
+const MOCK_FAILURE_RATE = 0.05; // 5% chance of throwing a mock server error
 
 function randomId(): string {
   const year = new Date().getFullYear();
@@ -37,7 +38,7 @@ function randomId(): string {
 
 export async function submitSurvey(_req: SurveyRequest): Promise<SurveyResponse> {
   await new Promise((resolve) => setTimeout(resolve, MOCK_DELAY_MS));
-  if (Math.random() < FAILURE_RATE) {
+  if (Math.random() < MOCK_FAILURE_RATE) {
     throw new SurveyApiError('server', 'Mock server error');
   }
   return {
