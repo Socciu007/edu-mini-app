@@ -1,73 +1,61 @@
 import '@testing-library/jest-dom/vitest';
 import React from 'react';
-import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import SurveyPage from './survey';
 import { useSettingsStore } from '../stores/settings-store';
 
+vi.mock('../services/survey-api', () => ({
+  submitSurvey: vi.fn(),
+  SurveyApiError: class SurveyApiError extends Error {
+    code: 'network' | 'server';
+    constructor(code: 'network' | 'server', message: string) {
+      super(message);
+      this.code = code;
+      this.name = 'SurveyApiError';
+    }
+  },
+}));
+
+import { submitSurvey } from '../services/survey-api';
+import type { SurveyResponse } from '../services/survey-api';
+
 describe('SurveyPage', () => {
   beforeEach(() => {
-    vi.useFakeTimers();
     useSettingsStore.setState({ language: 'vi' });
+    vi.clearAllMocks();
   });
 
-  afterEach(() => {
-    vi.useRealTimers();
-  });
-
-  it('renders idle state with start button', () => {
+  it('renders header and form', () => {
     render(<MemoryRouter><SurveyPage /></MemoryRouter>);
-    expect(screen.getByText('Khảo sát nhanh')).toBeInTheDocument();
-    expect(screen.getByText(/5 câu hỏi/)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Bắt đầu' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Khảo sát' })).toBeInTheDocument();
+    expect(screen.getByText('Môn học')).toBeInTheDocument();
   });
 
-  it('transitions to playing state when start is clicked', () => {
+  it('shows response panel after a successful submit', async () => {
+    const mockResponse: SurveyResponse = {
+      surveyId: 'SRV-2026-TEST01',
+      status: 'accepted',
+      receivedAt: '2026-06-28T10:00:00.000Z',
+      estimatedReviewHours: 24,
+    };
+    vi.mocked(submitSurvey).mockResolvedValue(mockResponse);
+
     render(<MemoryRouter><SurveyPage /></MemoryRouter>);
-    fireEvent.click(screen.getByRole('button', { name: 'Bắt đầu' }));
-    expect(screen.getByText(/Câu 1 \/ 5/)).toBeInTheDocument();
-    expect(screen.getByText(/30s/)).toBeInTheDocument();
-  });
 
-  it('marks correct answer and advances', () => {
-    render(<MemoryRouter><SurveyPage /></MemoryRouter>);
-    fireEvent.click(screen.getByRole('button', { name: 'Bắt đầu' }));
+    fireEvent.change(screen.getAllByRole('combobox')[0], { target: { value: 'math' } });
+    fireEvent.change(screen.getAllByRole('combobox')[1], { target: { value: '10' } });
+    fireEvent.change(screen.getByRole('textbox'), { target: { value: 'Quadratic' } });
+    fireEvent.change(screen.getAllByRole('combobox')[2], { target: { value: 'medium' } });
+    const file = new File([new Uint8Array(10)], 'a.pdf', { type: 'application/pdf' });
+    const input = screen.getByLabelText(/Chọn file/i) as HTMLInputElement;
+    fireEvent.change(input, { target: { files: [file] } });
 
-    const buttons = screen.getAllByRole('button').filter((b) => /^[A-D]\./.test(b.textContent || ''));
-    expect(buttons.length).toBeGreaterThan(0);
-    fireEvent.click(buttons[0]);
+    fireEvent.click(screen.getByRole('button', { name: /Gửi khảo sát/i }));
 
-    act(() => { vi.advanceTimersByTime(1100); });
-
-    expect(screen.getByText(/Câu 2 \/ 5/)).toBeInTheDocument();
-  });
-
-  it('transitions to finished state after 5 questions', () => {
-    render(<MemoryRouter><SurveyPage /></MemoryRouter>);
-    fireEvent.click(screen.getByRole('button', { name: 'Bắt đầu' }));
-
-    for (let i = 0; i < 5; i++) {
-      const buttons = screen.queryAllByRole('button').filter((b) => /^[A-D]\./.test(b.textContent || ''));
-      if (buttons.length === 0) break;
-      fireEvent.click(buttons[0]);
-      act(() => { vi.advanceTimersByTime(1100); });
-    }
-
-    expect(screen.getByText('Kết quả')).toBeInTheDocument();
-    expect(screen.getByText(/Bạn đúng \d+ \/ 5/)).toBeInTheDocument();
-  });
-
-  it('returns to idle when retry is clicked', () => {
-    render(<MemoryRouter><SurveyPage /></MemoryRouter>);
-    fireEvent.click(screen.getByRole('button', { name: 'Bắt đầu' }));
-    for (let i = 0; i < 5; i++) {
-      const buttons = screen.queryAllByRole('button').filter((b) => /^[A-D]\./.test(b.textContent || ''));
-      if (buttons.length === 0) break;
-      fireEvent.click(buttons[0]);
-      act(() => { vi.advanceTimersByTime(1100); });
-    }
-    fireEvent.click(screen.getByRole('button', { name: 'Làm lại' }));
-    expect(screen.getByText('Khảo sát nhanh')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText(/SRV-2026-TEST01/)).toBeInTheDocument();
+    });
   });
 });
