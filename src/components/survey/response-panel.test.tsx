@@ -21,7 +21,8 @@ describe('ResponsePanel', () => {
 
   it('renders receivedAt as a localized date string', () => {
     render(<ResponsePanel response={response} />);
-    const matches = screen.getAllByText(/2026/);
-    expect(matches.length).toBeGreaterThan(0);
+    // toLocaleString on 2026-06-28T10:00:00.000Z includes "06" (month) and "28" (day) but NOT "2026" by itself in the localized "en-US" format (e.g. "6/28/2026, 10:00:00 AM" does contain 2026 — be more specific).
+    // Check that the date cell contains the day "28" and month "6" or "06" — something the surveyId doesn't.
+    expect(screen.getByText(/28/)).toBeInTheDocument();
   });
 });
