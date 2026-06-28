@@ -61,16 +61,16 @@ interface SelectRowProps {
 
 function SelectRow({ Icon, label, value, placeholder, onChange, children }: SelectRowProps) {
   return (
-    <div className="flex items-center w-full gap-3 px-4 py-3 bg-surface">
+    <div className="flex items-center justify-between gap-3 px-4 py-3 bg-surface">
       <Icon className="w-5 h-5 text-primary shrink-0" />
       <span className="text-sm text-text shrink-0">{label}</span>
-      <div className="ml-auto">
+      <div className="flex-1 bg-transparent">
         <Select
           value={value}
           placeholder={placeholder}
           closeOnSelect
           maskCloseable
-          className="!border-none !bg-transparent w-fit text-text-secondary"
+          className="border-none m-0 h-fit bg-transparent text-text-secondary select-css"
           onChange={onChange}
         >
           {children}

@@ -42,7 +42,7 @@ body { @apply bg-background text-text antialiased; }
   --color-primary-foreground: #052E16;
 
   --color-secondary: #34D399;
-  --color-accent: #60A5FA;
+  --color-accent: #297EFF;// #60A5FA;
   --color-accent-soft: #1E3A5F;
 
   --color-background: #071A24;
@@ -99,4 +99,16 @@ body { @apply bg-background text-text antialiased; }
   width: 4rem; height: 3px;
   background-color: var(--color-primary);
   border-radius: 9999px;
+}
+.select-css {
+  .zaui-input {
+    text-align: end;
+    padding-right: 0;
+  }
+  .zaui-input-suffix {
+    margin-top: 1px;
+    .zaui-icon {
+      margin-right: 0;
+    }
+  }
 }
