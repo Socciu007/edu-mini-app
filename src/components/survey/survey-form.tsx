@@ -98,9 +98,10 @@ export function SurveyForm({ onSubmit, isSubmitting }: Props) {
   const subjectOptions = SUBJECTS.map((s) => ({ value: s.id, label: s.name[language] }))
   const gradeOptions = GRADES.map((g) => ({ value: g, label: String(g) }))
   const difficultyOptions: { value: Difficulty; label: string }[] = [
-    { value: 'easy', label: t('survey.form.easy') },
-    { value: 'medium', label: t('survey.form.medium') },
-    { value: 'hard', label: t('survey.form.hard') },
+    { value: 0, label: t('survey.form.easy') },
+    { value: 1, label: t('survey.form.medium') },
+    { value: 2, label: t('survey.form.hard') },
+    { value: 3, label: t('survey.form.veryHard') },
   ]
 
   return (
@@ -123,7 +124,7 @@ export function SurveyForm({ onSubmit, isSubmitting }: Props) {
         label={t('survey.form.lesson')}
         value={form.lesson}
         onChange={(v) => update('lesson', v)}
-        maxLength={200}
+        maxLength={500}
         error={errors.lesson ? t(`survey.form.errors.${errors.lesson}`) : undefined}
       />
       <SelectField

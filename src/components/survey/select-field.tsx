@@ -30,10 +30,10 @@ export function SelectField<V extends string | number>({ label, value, options, 
           const v = (isNumeric ? Number(raw) : raw) as unknown as V
           onChange(v)
         }}
-        className="border border-border rounded-lg px-3 py-2 text-sm bg-background"
+        className="border border-border rounded-lg px-3 py-2 text-sm bg-primary-foreground"
       >
-        <option value="" disabled>
-          ---
+        <option className="text-text-secondary" value="" disabled>
+          -
         </option>
         {options.map((o) => (
           <option key={String(o.value)} value={String(o.value)}>
