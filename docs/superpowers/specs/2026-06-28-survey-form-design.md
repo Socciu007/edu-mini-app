@@ -59,7 +59,10 @@ This is a complete replacement of the page contents — the URL, route registrat
 5. Show success toast `survey.form.toastSuccess` via existing `SnackbarProvider`.
 6. Set local state `response = <api response>` to render the `ResponsePanel` below the (now empty) form.
 7. **API failure path:** if `submitSurvey` rejects, show `survey.form.toastError`; **do not** reset the form (user can retry); do not show response panel.
-8. Once a response is displayed, the user can submit again. A new successful submit replaces the previous response; failed submit keeps the previous response visible (the form is also unchanged in that case, so this is natural).
+8. Once a response is displayed, the user can submit again. Behavior on resubmit:
+   - Successful resubmit → the previous response is **replaced** by the new one (single response panel at a time).
+   - Failed resubmit → the previous response **stays visible** (we never clear `response` on failure), the form fields are also unchanged, so the user can fix and retry.
+   - Submitting state (`isSubmitting: true`) suppresses new submit clicks while in flight.
 
 ### Response panel
 
@@ -67,7 +70,7 @@ Shown below the form whenever `response` is non-null. Renders:
 - `survey.form.responseTitle` heading
 - `survey.form.responseSurveyId` → `response.surveyId`
 - `survey.form.responseStatus` → `response.status` (rendered in `text-success` if `accepted`, `text-warning` if `queued`)
-- `survey.form.responseReceivedAt` → formatted ISO timestamp using existing `format` utility or simple `toLocaleString()`
+- `survey.form.responseReceivedAt` → formatted using `new Date(response.receivedAt).toLocaleString()` with the current language from `useSettingsStore` (no new util needed; `Intl.DateTimeFormat` is built-in)
 
 ## Architecture
 
