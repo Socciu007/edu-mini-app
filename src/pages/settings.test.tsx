@@ -51,48 +51,30 @@ describe('SettingsPage', () => {
     expect(screen.getByText('Đánh giá ứng dụng')).toBeInTheDocument()
   })
 
-  it('shows the current language value', () => {
+  it('shows the current language value on the language select', () => {
     useSettingsStore.setState({ language: 'vi' })
     render(
       <MemoryRouter>
         <SettingsPage />
       </MemoryRouter>,
     )
-    expect(screen.getByText('Tiếng Việt')).toBeInTheDocument()
+    const inputs = screen.getAllByRole('textbox')
+    const langInput = inputs.find((el) => (el as HTMLInputElement).placeholder === 'Tiếng Việt')
+    expect(langInput).toBeDefined()
+    expect((langInput as HTMLInputElement).value).toBe('Tiếng Việt')
   })
 
-  it('shows the current theme value', () => {
+  it('shows the current theme value on the theme select', () => {
     useThemeStore.setState({ mode: 'dark' })
     render(
       <MemoryRouter>
         <SettingsPage />
       </MemoryRouter>,
     )
-    expect(screen.getByText('Tối')).toBeInTheDocument()
-  })
-
-  it('clicking the language row cycles through languages', () => {
-    useSettingsStore.setState({ language: 'vi' })
-    render(
-      <MemoryRouter>
-        <SettingsPage />
-      </MemoryRouter>,
-    )
-    const langRow = screen.getByText('Ngôn ngữ').closest('button')!
-    fireEvent.click(langRow)
-    expect(useSettingsStore.getState().language).toBe('en')
-  })
-
-  it('clicking the theme row cycles through theme modes', () => {
-    useThemeStore.setState({ mode: 'system' })
-    render(
-      <MemoryRouter>
-        <SettingsPage />
-      </MemoryRouter>,
-    )
-    const themeRow = screen.getByText('Giao diện').closest('button')!
-    fireEvent.click(themeRow)
-    expect(useThemeStore.getState().mode).toBe('light')
+    const inputs = screen.getAllByRole('textbox')
+    const themeInput = inputs.find((el) => (el as HTMLInputElement).placeholder === 'Tối')
+    expect(themeInput).toBeDefined()
+    expect((themeInput as HTMLInputElement).value).toBe('Tối')
   })
 
   it('clicking reset clears the chat store', () => {

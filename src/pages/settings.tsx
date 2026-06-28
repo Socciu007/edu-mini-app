@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Select } from 'zmp-ui'
 
 import BookIcon from '@/static/icons/book.svg?react'
 import BotIcon from '@/static/icons/bot.svg?react'
@@ -15,9 +16,6 @@ import { useTranslation } from '../i18n/use-translation'
 import { useChatStore } from '../stores/chat-store'
 import { type Language, useSettingsStore } from '../stores/settings-store'
 import { type ThemeMode, useThemeStore } from '../stores/theme-store'
-
-const LANGUAGES: Language[] = ['vi', 'en']
-const THEME_MODES: ThemeMode[] = ['light', 'dark', 'system']
 
 interface RowProps {
   Icon: React.FC<React.SVGProps<SVGSVGElement>>
@@ -52,6 +50,36 @@ function SettingRow({ Icon, label, value, onClick, danger }: RowProps) {
   )
 }
 
+interface SelectRowProps {
+  Icon: React.FC<React.SVGProps<SVGSVGElement>>
+  label: string
+  value: string | number
+  placeholder: string
+  onChange: (value: unknown) => void
+  children: React.ReactNode
+}
+
+function SelectRow({ Icon, label, value, placeholder, onChange, children }: SelectRowProps) {
+  return (
+    <div className="flex items-center gap-3 px-4 py-3 bg-surface">
+      <Icon className="w-5 h-5 text-primary shrink-0" />
+      <span className="text-sm text-text shrink-0">{label}</span>
+      <div className="flex-1 min-w-0">
+        <Select
+          value={value}
+          placeholder={placeholder}
+          closeOnSelect
+          maskCloseable
+          className="w-full"
+          onChange={onChange}
+        >
+          {children}
+        </Select>
+      </div>
+    </div>
+  )
+}
+
 export default function SettingsPage() {
   const { t } = useTranslation()
   const nav = useNavigate()
@@ -62,24 +90,22 @@ export default function SettingsPage() {
   const resetChat = useChatStore((s) => s.reset)
   const aiReady = Boolean(import.meta.env.VITE_AI_API_KEY)
 
-  function cycleLanguage() {
-    const next = LANGUAGES[(LANGUAGES.indexOf(language) + 1) % LANGUAGES.length]
-    setLanguage(next)
+  function handleLanguageChange(value: unknown) {
+    if (value === 'vi' || value === 'en') setLanguage(value)
   }
 
-  function cycleTheme() {
-    const next = THEME_MODES[(THEME_MODES.indexOf(mode) + 1) % THEME_MODES.length]
-    setMode(next)
+  function handleThemeChange(value: unknown) {
+    if (value === 'light' || value === 'dark' || value === 'system') setMode(value)
+  }
+
+  function languageLabel(l: Language): string {
+    return l === 'vi' ? t('user.languageVi') : t('user.languageEn')
   }
 
   function themeLabel(m: ThemeMode): string {
     if (m === 'light') return t('user.themeLight')
     if (m === 'dark') return t('user.themeDark')
     return t('user.themeSystem')
-  }
-
-  function languageLabel(l: Language): string {
-    return l === 'vi' ? t('user.languageVi') : t('user.languageEn')
   }
 
   return (
@@ -89,13 +115,27 @@ export default function SettingsPage() {
       <section className="px-4 mt-4">
         <h2 className="text-xs font-semibold text-text-secondary uppercase mb-2">{t('settings.sectionGeneral')}</h2>
         <div className="bg-surface rounded-xl overflow-hidden divide-y divide-border">
-          <SettingRow
+          <SelectRow
             Icon={GlobeIcon}
             label={t('settings.language')}
-            value={languageLabel(language)}
-            onClick={cycleLanguage}
-          />
-          <SettingRow Icon={ThemeIcon} label={t('settings.theme')} value={themeLabel(mode)} onClick={cycleTheme} />
+            value={language}
+            placeholder={languageLabel(language)}
+            onChange={handleLanguageChange}
+          >
+            <Select.Option title={t('user.languageVi')} value="vi" />
+            <Select.Option title={t('user.languageEn')} value="en" />
+          </SelectRow>
+          <SelectRow
+            Icon={ThemeIcon}
+            label={t('settings.theme')}
+            value={mode}
+            placeholder={themeLabel(mode)}
+            onChange={handleThemeChange}
+          >
+            <Select.Option title={t('user.themeLight')} value="light" />
+            <Select.Option title={t('user.themeDark')} value="dark" />
+            <Select.Option title={t('user.themeSystem')} value="system" />
+          </SelectRow>
           <SettingRow Icon={RefreshIcon} label={t('settings.reset')} danger onClick={() => resetChat()} />
         </div>
       </section>
