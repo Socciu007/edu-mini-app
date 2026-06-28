@@ -9,6 +9,11 @@ import type { Difficulty, SubjectId } from '../../providers/types';
 import type { SurveyRequest, SurveyResponse } from '../../services/survey-api';
 
 interface Props {
+  /**
+   * Submit handler.
+   * MUST return a non-null SurveyResponse on success and null on failure —
+   * the form resets only when this returns a truthy value.
+   */
   onSubmit: (req: SurveyRequest) => Promise<SurveyResponse | null> | SurveyResponse | null;
   isSubmitting: boolean;
 }
@@ -42,7 +47,7 @@ type ErrorKey =
   | 'documentsRequired';
 
 export function SurveyForm({ onSubmit, isSubmitting }: Props) {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const [form, setForm] = useState<FormState>(EMPTY);
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, ErrorKey>>>({});
 
@@ -89,7 +94,7 @@ export function SurveyForm({ onSubmit, isSubmitting }: Props) {
     }
   }
 
-  const subjectOptions = SUBJECTS.map((s) => ({ value: s.id, label: s.name.vi }));
+  const subjectOptions = SUBJECTS.map((s) => ({ value: s.id, label: s.name[language] }));
   const gradeOptions = GRADES.map((g) => ({ value: g, label: String(g) }));
   const difficultyOptions: { value: Difficulty; label: string }[] = [
     { value: 'easy', label: t('survey.form.easy') },
