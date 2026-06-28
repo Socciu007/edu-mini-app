@@ -14,13 +14,20 @@ interface Props<V extends string | number> {
 }
 
 export function SelectField<V extends string | number>({ label, value, options, onChange, error }: Props<V>) {
+  // DOM <option> values are always strings, and select onChange delivers the
+  // selected value as a string. We detect numeric V via the first option's
+  // runtime type and coerce the string back to a number so callers receive
+  // the original V type intact.
+  const isNumeric = typeof options[0]?.value === 'number';
+
   return (
     <div className="flex flex-col gap-1">
       <label className="text-sm text-text-secondary">{label}</label>
       <select
         value={value}
         onChange={(e) => {
-          const v = e.target.value as unknown as V;
+          const raw = e.target.value;
+          const v = (isNumeric ? Number(raw) : raw) as unknown as V;
           onChange(v);
         }}
         className="border border-border rounded-lg px-3 py-2 text-sm bg-background"
@@ -29,7 +36,7 @@ export function SelectField<V extends string | number>({ label, value, options, 
           ---
         </option>
         {options.map((o) => (
-          <option key={String(o.value)} value={o.value as unknown as string}>
+          <option key={String(o.value)} value={String(o.value)}>
             {o.label}
           </option>
         ))}
