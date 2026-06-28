@@ -1,13 +1,18 @@
 import '@testing-library/jest-dom/vitest';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
-import { openSnackbar } from 'zmp-ui';
 import { useSurveySubmit } from './use-survey-submit';
 import * as api from '../services/survey-api';
 import type { SurveyResponse } from '../services/survey-api';
 
+const openSnackbar = vi.fn();
+
 vi.mock('zmp-ui', () => ({
-  openSnackbar: vi.fn(),
+  useSnackbar: () => ({
+    openSnackbar,
+    closeSnackbar: vi.fn(),
+    setDownloadProgress: vi.fn(),
+  }),
 }));
 
 vi.mock('../services/survey-api', () => ({

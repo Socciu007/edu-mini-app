@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
-import { openSnackbar } from 'zmp-ui';
-import { submitSurvey, SurveyApiError, type SurveyRequest, type SurveyResponse } from '../services/survey-api';
+import { useSnackbar } from 'zmp-ui';
+import { submitSurvey, type SurveyRequest, type SurveyResponse } from '../services/survey-api';
 
 export type SurveyFormShape = {
   subject?: SurveyRequest['subject'];
@@ -30,27 +30,31 @@ export interface UseSurveySubmitResult {
 
 export function useSurveySubmit(): UseSurveySubmitResult {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const snackbar = useSnackbar();
 
-  const submit = useCallback(async (form: SurveyFormShape): Promise<SurveyResponse | null> => {
-    const errors = validate(form);
-    if (Object.keys(errors).length > 0) {
-      // Surface a generic error snackbar; per-field errors are handled in SurveyForm.
-      openSnackbar({ text: 'survey.form.toastError', type: 'error' });
-      return null;
-    }
+  const submit = useCallback(
+    async (form: SurveyFormShape): Promise<SurveyResponse | null> => {
+      const errors = validate(form);
+      if (Object.keys(errors).length > 0) {
+        // Surface a generic error snackbar; per-field errors are handled in SurveyForm.
+        snackbar.openSnackbar({ text: 'survey.form.toastError', type: 'error' });
+        return null;
+      }
 
-    setIsSubmitting(true);
-    try {
-      const response = await submitSurvey(form as SurveyRequest);
-      openSnackbar({ text: 'survey.form.toastSuccess', type: 'success' });
-      return response;
-    } catch {
-      openSnackbar({ text: 'survey.form.toastError', type: 'error' });
-      return null;
-    } finally {
-      setIsSubmitting(false);
-    }
-  }, []);
+      setIsSubmitting(true);
+      try {
+        const response = await submitSurvey(form as SurveyRequest);
+        snackbar.openSnackbar({ text: 'survey.form.toastSuccess', type: 'success' });
+        return response;
+      } catch {
+        snackbar.openSnackbar({ text: 'survey.form.toastError', type: 'error' });
+        return null;
+      } finally {
+        setIsSubmitting(false);
+      }
+    },
+    [snackbar],
+  );
 
   return { isSubmitting, submit };
 }
