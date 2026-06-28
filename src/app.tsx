@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import React, { Suspense } from 'react'
-import { Outlet, Route } from 'react-router-dom'
-import { AnimationRoutes, App, SnackbarProvider, ZMPRouter } from 'zmp-ui'
+import { Outlet, Route, Routes } from 'react-router-dom'
+import { App, SnackbarProvider, ZMPRouter } from 'zmp-ui'
 
 import { TabBar } from './components/tab-bar'
 import { useThemeEffect } from './hooks/use-theme-effect'
@@ -33,14 +33,14 @@ const MyApp = () => {
         <QueryClientProvider client={queryClient}>
           <SnackbarProvider>
             <ZMPRouter>
-              <AnimationRoutes>
+              <Routes>
                 <Route element={<ShellLayout />}>
                   <Route path="/" element={<ChatPage />} />
                   <Route path="/survey" element={<SurveyPage />} />
                   <Route path="/review" element={<ReviewPage />} />
                   <Route path="/user" element={<UserPage />} />
                 </Route>
-              </AnimationRoutes>
+              </Routes>
             </ZMPRouter>
           </SnackbarProvider>
         </QueryClientProvider>
