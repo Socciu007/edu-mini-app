@@ -8,7 +8,6 @@ import GlobeIcon from '@/static/icons/globe.svg?react'
 import HelpIcon from '@/static/icons/help.svg?react'
 import LockIcon from '@/static/icons/lock.svg?react'
 import RateIcon from '@/static/icons/rate.svg?react'
-import RefreshIcon from '@/static/icons/refresh.svg?react'
 import ThemeIcon from '@/static/icons/theme.svg?react'
 
 import { PageHeader } from '../components/page-header'
@@ -87,7 +86,6 @@ export default function SettingsPage() {
   const setLanguage = useSettingsStore((s) => s.setLanguage)
   const mode = useThemeStore((s) => s.mode)
   const setMode = useThemeStore((s) => s.setMode)
-  const resetChat = useChatStore((s) => s.reset)
   const aiReady = Boolean(import.meta.env.VITE_AI_API_KEY)
 
   function handleLanguageChange(value: unknown) {
@@ -136,7 +134,6 @@ export default function SettingsPage() {
             <Select.Option title={t('user.themeDark')} value="dark" />
             <Select.Option title={t('user.themeSystem')} value="system" />
           </SelectRow>
-          <SettingRow Icon={RefreshIcon} label={t('settings.reset')} danger onClick={() => resetChat()} />
         </div>
       </section>
 

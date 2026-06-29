@@ -13,7 +13,7 @@ export default function ChatPage() {
   const nav = useNavigate()
   const messages = useChatStore((s) => s.messages)
   const sendUserMessage = useChatStore((s) => s.sendUserMessage)
-  const reset = useChatStore((s) => s.reset)
+  // const reset = useChatStore((s) => s.reset)
   const aiReady = Boolean(import.meta.env.VITE_AI_API_KEY)
 
   const listRef = useRef<HTMLDivElement>(null)
@@ -23,21 +23,13 @@ export default function ChatPage() {
 
   return (
     <div className="flex flex-col">
-      <PageHeader
-        title={t('tabs.chat')}
-        onBack={() => nav('/')}
-        // right={
-        //   <button onClick={reset} className="text-xs text-text-secondary no-underline">
-        //     {t('chat.newSession')}
-        //   </button>
-        // }
-      />
+      <PageHeader title={t('tabs.chat')} onBack={() => nav('/')} />
       {!aiReady && (
         <div className="bg-[#FEF9C3] text-[#000] text-xs px-4 py-2 border-b border-border">
           {t('chat.aiNotConfiguredRandom')}
         </div>
       )}
-      <div ref={listRef} className="flex-1 overflow-y-auto px-2 bg-background scrollbar-thin">
+      <div ref={listRef} className="flex-1 px-2 bg-background pb-10">
         {messages.length === 0 ? (
           <EmptyState onPickPrompt={(p) => sendUserMessage(p)} />
         ) : (
