@@ -2,8 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import MenuIcon from '@/static/icons/menu.svg?react'
 import PlusIcon from '@/static/icons/plus.svg?react'
-import SearchIcon from '@/static/icons/search.svg?react'
 import RefreshIcon from '@/static/icons/refresh-cw.svg?react'
+import SearchIcon from '@/static/icons/search.svg?react'
 
 import { useTranslation } from '../../i18n/use-translation'
 import { useChatStore } from '../../stores/chat-store'
@@ -83,7 +83,7 @@ export function ChatMenu() {
         <MenuIcon className="w-5 h-5" />
       </button>
       {open && (
-        <div className="absolute right-0 top-full mt-2 w-72 bg-surface border border-border rounded-xl shadow-lg overflow-hidden z-30">
+        <div className="absolute right-0 top-full mt-2 min-w-48 bg-surface border border-border rounded-xl shadow-lg overflow-hidden z-30">
           <MenuItem onClick={handleNewChat}>
             <PlusIcon className="w-4 h-4" />
             <span>{t('chat.menuNew')}</span>
