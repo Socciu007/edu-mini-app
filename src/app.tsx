@@ -19,8 +19,10 @@ const queryClient = new QueryClient({
 
 function ShellLayout() {
   return (
-    <div className="h-screen overflow-y-auto pb-16">
-      <Outlet />
+    <div className="h-screen flex flex-col">
+      <main className="flex-1 min-h-0 overflow-hidden">
+        <Outlet />
+      </main>
       <TabBar />
     </div>
   )

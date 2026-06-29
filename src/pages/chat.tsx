@@ -24,14 +24,14 @@ export default function ChatPage() {
   }, [messages])
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col h-full">
       <PageHeader title={t('tabs.chat')} onBack={() => nav('/')} />
       {!aiReady && (
-        <div className="fixed top-[4.5rem] left-0 right-0 bg-[#FEF9C3] text-[#000] text-xs px-4 py-2 border-b border-border">
+        <div className="bg-[#FEF9C3] text-[#000] text-xs px-4 py-2 border-b border-border">
           {t('chat.aiNotConfiguredRandom')}
         </div>
       )}
-      <div ref={listRef} className="flex-1 mt-[6.5rem] px-2 bg-background pb-10">
+      <div ref={listRef} className="flex-1 overflow-y-auto px-2 bg-background pb-4">
         {messages.length === 0 ? (
           <EmptyState onPickPrompt={(p) => sendUserMessage(p)} />
         ) : (
