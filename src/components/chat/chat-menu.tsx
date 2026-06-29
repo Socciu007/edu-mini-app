@@ -97,12 +97,12 @@ export function ChatMenu() {
           </MenuItem>
           <Divider />
           <SectionLabel>{t('chat.menuPinned')}</SectionLabel>
-          <div className="w-full px-4 py-2 text-text bg-accent-soft">
+          <div className="w-full px-4 py-2 bg-accent-soft">
             <div className="pl-4 text-xs text-text">{t('chat.menuEmpty')}</div>
           </div>
           <Divider />
           <SectionLabel>{t('chat.menuConversations')}</SectionLabel>
-          <div className="w-full px-4 py-2 text-text bg-accent-soft">
+          <div className="w-full px-4 py-2 bg-accent-soft">
             <button
               onClick={handleSessionClick}
               className="pl-4 text-left border-none text-xs text-text bg-transparent"
