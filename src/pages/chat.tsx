@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { ChatInput } from '../components/chat/chat-input'
+import { ChatMenu } from '../components/chat/chat-menu'
 import { EmptyState } from '../components/chat/empty-state'
 import { MessageBubble } from '../components/chat/message-bubble'
 import { PageHeader } from '../components/page-header'
@@ -25,7 +26,7 @@ export default function ChatPage() {
 
   return (
     <div className="flex flex-col h-full">
-      <PageHeader title={t('tabs.chat')} onBack={() => nav('/')} />
+      <PageHeader title={t('tabs.chat')} onBack={() => nav('/')} right={<ChatMenu />} />
       {!aiReady && (
         <div className="fixed top-[4.5rem] left-0 right-0 bg-[#FEF9C3] text-[#000] text-xs px-4 py-2 border-b border-border">
           {t('chat.aiNotConfiguredRandom')}
