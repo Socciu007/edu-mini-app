@@ -21,10 +21,12 @@ export default function SurveyPage() {
   }
 
   return (
-    <div className="pb-2">
+    <div className="flex flex-col h-full">
       <PageHeader title={t('survey.headerTitle')} onBack={() => nav('/')} />
-      <SurveyForm onSubmit={handleSubmit} isSubmitting={isSubmitting} />
-      {response ? <ResponsePanel response={response} /> : null}
+      <div className="overflow-y-auto pb-[5.5rem]">
+        <SurveyForm onSubmit={handleSubmit} isSubmitting={isSubmitting} />
+        {response ? <ResponsePanel response={response} /> : null}
+      </div>
     </div>
   )
 }

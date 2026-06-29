@@ -28,44 +28,46 @@ export default function ReviewPage() {
   const nav = useNavigate()
 
   return (
-    <div className="pb-0">
+    <div className="flex flex-col h-full">
       <PageHeader title={t('review.title')} onBack={() => nav(-1)} />
 
-      <section className="px-4 mt-[5.5rem]">
-        <h2 className="text-sm font-medium text-text-secondary mb-2">{t('review.stats')}</h2>
-        <div className="grid grid-cols-3 gap-2 text-center">
-          <div className="rounded-lg border border-border p-3 bg-accent-soft">
-            <div className="text-xs text-text">{t('review.asked')}</div>
-            <div className="text-2xl font-bold">{asked}</div>
+      <div className="overflow-y-auto pt-[5rem] pb-[4.5rem]">
+        <section className="px-4">
+          <h2 className="text-sm font-medium text-text-secondary mb-2">{t('review.stats')}</h2>
+          <div className="grid grid-cols-3 gap-2 text-center">
+            <div className="rounded-lg border border-border p-3 bg-accent-soft">
+              <div className="text-xs text-text">{t('review.asked')}</div>
+              <div className="text-2xl font-bold">{asked}</div>
+            </div>
+            <div className="rounded-lg border border-border p-3 bg-accent-soft">
+              <div className="text-xs text-text">{t('review.correct')}</div>
+              <div className="text-2xl font-bold">{correct}</div>
+            </div>
+            <div className="rounded-lg border border-border p-3 bg-accent-soft">
+              <div className="text-xs text-text">{t('review.accuracy')}</div>
+              <div className="text-2xl font-bold">{accuracy}</div>
+            </div>
           </div>
-          <div className="rounded-lg border border-border p-3 bg-accent-soft">
-            <div className="text-xs text-text">{t('review.correct')}</div>
-            <div className="text-2xl font-bold">{correct}</div>
-          </div>
-          <div className="rounded-lg border border-border p-3 bg-accent-soft">
-            <div className="text-xs text-text">{t('review.accuracy')}</div>
-            <div className="text-2xl font-bold">{accuracy}</div>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="p-4">
-        <h2 className="text-sm font-medium text-text-secondary mb-2">💬 {t('review.history')}</h2>
-        {messages.length === 0 ? (
-          <div className="rounded-lg border border-dashed border-border p-6 text-center text-sm text-text-subtle">
-            {t('review.empty')}
-          </div>
-        ) : (
-          <div className="space-y-1">
-            {messages.map((m) => (
-              <div key={m.id}>
-                <div className="text-[10px] text-text-subtle px-2">{formatRelative(m.createdAt, language)}</div>
-                <MessageBubble message={m} />
-              </div>
-            ))}
-          </div>
-        )}
-      </section>
+        <section className="px-4">
+          <h2 className="text-sm font-medium text-text-secondary mb-2">💬 {t('review.history')}</h2>
+          {messages.length === 0 ? (
+            <div className="rounded-lg border border-dashed border-border p-6 text-center text-sm text-text-subtle">
+              {t('review.empty')}
+            </div>
+          ) : (
+            <div className="space-y-1">
+              {messages.map((m) => (
+                <div key={m.id}>
+                  <div className="text-[10px] text-text-subtle px-2">{formatRelative(m.createdAt, language)}</div>
+                  <MessageBubble message={m} />
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+      </div>
     </div>
   )
 }

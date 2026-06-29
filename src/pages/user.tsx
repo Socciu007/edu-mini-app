@@ -35,72 +35,74 @@ export default function UserPage() {
   const setMode = useThemeStore((s) => s.setMode)
 
   return (
-    <div className="pb-2">
-      <GradientHeader
-        title={t('user.loginTitle')}
-        subtitle={t('user.loginSubtitle')}
-        buttonText={t('user.loginButton')}
-        onButtonClick={() => nav('/')}
-      />
-
-      {/* Quick actions */}
-      <div className="px-4 -mt-6 relative z-10">
-        <div className="bg-surface rounded-xl shadow-sm p-4 flex justify-around">
-          <QuickAction label={t('survey.headerTitle')} to="/survey" Icon={Survey1Icon} />
-          <QuickAction label={t('user.favorite')} to="/review" Icon={StarIcon} />
-          <QuickAction label={t('review.headerTitle')} to="/review" Icon={Review1Icon} />
-        </div>
-      </div>
-
-      {/* AI banner */}
-      <div className="px-4 mt-4">
-        <InfoBanner
-          title={t('user.aiBanner.title')}
-          subtitle={t('user.aiBanner.subtitle')}
-          cta={t('user.aiBanner.cta')}
-          Icon={BotIcon}
-          onCtaClick={() => nav('/')}
+    <div className="flex flex-col h-full">
+      <div className="overflow-y-auto pb-[4.5rem]">
+        <GradientHeader
+          title={t('user.loginTitle')}
+          subtitle={t('user.loginSubtitle')}
+          buttonText={t('user.loginButton')}
+          onButtonClick={() => nav('/')}
         />
-      </div>
 
-      {/* Common functions */}
-      <section className="px-4 mt-6">
-        <h2 className="text-sm font-semibold text-text mb-3">{t('user.commonFunctions')}</h2>
-        <div className="bg-surface rounded-xl p-4 grid grid-cols-4 gap-4">
-          <FunctionTile label={t('user.subjects')} Icon={BookIcon} />
-          <FunctionTile label={t('user.exercises')} Icon={PencilIcon} />
-          <FunctionTile label={t('user.lessons')} Icon={LectureIcon} />
-          <FunctionTile label={t('user.exams')} Icon={TestIcon} />
+        {/* Quick actions */}
+        <div className="px-4 -mt-6 relative z-10">
+          <div className="bg-surface rounded-xl shadow-sm p-4 flex justify-around">
+            <QuickAction label={t('survey.headerTitle')} to="/survey" Icon={Survey1Icon} />
+            <QuickAction label={t('user.favorite')} to="/review" Icon={StarIcon} />
+            <QuickAction label={t('review.headerTitle')} to="/review" Icon={Review1Icon} />
+          </div>
         </div>
-      </section>
 
-      {/* Other functions */}
-      <section className="px-4 mt-6">
-        <h2 className="text-sm font-semibold text-text mb-3">{t('user.otherFunctions')}</h2>
-        <div className="bg-surface rounded-xl p-4 grid grid-cols-4 gap-4">
-          <FunctionTile label={t('user.settings')} Icon={SettingsIcon} onClick={() => nav('/settings')} />
-          <FunctionTile label={t('user.language')} Icon={GlobeIcon} />
-          <FunctionTile
-            label={t('user.theme')}
-            Icon={ThemeIcon}
-            onClick={() => {
-              const next = THEME_MODES[(THEME_MODES.indexOf(mode) + 1) % THEME_MODES.length]
-              setMode(next)
-            }}
+        {/* AI banner */}
+        <div className="px-4 mt-4">
+          <InfoBanner
+            title={t('user.aiBanner.title')}
+            subtitle={t('user.aiBanner.subtitle')}
+            cta={t('user.aiBanner.cta')}
+            Icon={BotIcon}
+            onCtaClick={() => nav('/')}
           />
-          <FunctionTile label={t('user.reset')} Icon={RefreshIcon} onClick={() => resetChat()} />
-          <FunctionTile label={t('user.ai')} Icon={BotIcon} onClick={() => nav('/')} />
-          <FunctionTile label={t('user.security')} Icon={LockIcon} />
-          <FunctionTile label={t('user.support')} Icon={HelpIcon} />
-          <FunctionTile label={t('user.rate')} Icon={RateIcon} />
         </div>
-      </section>
 
-      {/* Footer */}
-      <footer className="px-4 mt-6 pb-8 text-xs text-text-subtle text-center space-y-1">
-        <p>{t('user.footer.support')}</p>
-        <p>{t('user.footer.copyright')}</p>
-      </footer>
+        {/* Common functions */}
+        <section className="px-4 mt-6">
+          <h2 className="text-sm font-semibold text-text mb-3">{t('user.commonFunctions')}</h2>
+          <div className="bg-surface rounded-xl p-4 grid grid-cols-4 gap-4">
+            <FunctionTile label={t('user.subjects')} Icon={BookIcon} />
+            <FunctionTile label={t('user.exercises')} Icon={PencilIcon} />
+            <FunctionTile label={t('user.lessons')} Icon={LectureIcon} />
+            <FunctionTile label={t('user.exams')} Icon={TestIcon} />
+          </div>
+        </section>
+
+        {/* Other functions */}
+        <section className="px-4 mt-6">
+          <h2 className="text-sm font-semibold text-text mb-3">{t('user.otherFunctions')}</h2>
+          <div className="bg-surface rounded-xl p-4 grid grid-cols-4 gap-4">
+            <FunctionTile label={t('user.settings')} Icon={SettingsIcon} onClick={() => nav('/settings')} />
+            <FunctionTile label={t('user.language')} Icon={GlobeIcon} />
+            <FunctionTile
+              label={t('user.theme')}
+              Icon={ThemeIcon}
+              onClick={() => {
+                const next = THEME_MODES[(THEME_MODES.indexOf(mode) + 1) % THEME_MODES.length]
+                setMode(next)
+              }}
+            />
+            <FunctionTile label={t('user.reset')} Icon={RefreshIcon} onClick={() => resetChat()} />
+            <FunctionTile label={t('user.ai')} Icon={BotIcon} onClick={() => nav('/')} />
+            <FunctionTile label={t('user.security')} Icon={LockIcon} />
+            <FunctionTile label={t('user.support')} Icon={HelpIcon} />
+            <FunctionTile label={t('user.rate')} Icon={RateIcon} />
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="px-4 mt-6 pb-8 text-xs text-text-subtle text-center space-y-1">
+          <p>{t('user.footer.support')}</p>
+          <p>{t('user.footer.copyright')}</p>
+        </footer>
+      </div>
     </div>
   )
 }

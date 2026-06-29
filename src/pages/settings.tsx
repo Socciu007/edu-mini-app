@@ -107,54 +107,56 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="pb-2">
+    <div className="flex flex-col h-full">
       <PageHeader title={t('settings.title')} onBack={() => nav(-1)} />
 
-      <section className="px-4 mt-[5.5rem]">
-        <h2 className="text-xs font-semibold text-text-secondary uppercase mb-2">{t('settings.sectionGeneral')}</h2>
-        <div className="bg-surface rounded-xl overflow-hidden divide-y divide-border">
-          <SelectRow
-            Icon={GlobeIcon}
-            label={t('settings.language')}
-            value={language}
-            placeholder={languageLabel(language)}
-            onChange={handleLanguageChange}
-          >
-            <Select.Option title={t('user.languageVi')} value="vi" />
-            <Select.Option title={t('user.languageEn')} value="en" />
-          </SelectRow>
-          <SelectRow
-            Icon={ThemeIcon}
-            label={t('settings.theme')}
-            value={mode}
-            placeholder={themeLabel(mode)}
-            onChange={handleThemeChange}
-          >
-            <Select.Option title={t('user.themeLight')} value="light" />
-            <Select.Option title={t('user.themeDark')} value="dark" />
-            <Select.Option title={t('user.themeSystem')} value="system" />
-          </SelectRow>
-        </div>
-      </section>
+      <div className="overflow-y-auto pb-[4.5rem]">
+        <section className="px-4 mt-[5.5rem]">
+          <h2 className="text-xs font-semibold text-text-secondary uppercase mb-2">{t('settings.sectionGeneral')}</h2>
+          <div className="bg-surface rounded-xl overflow-hidden divide-y divide-border">
+            <SelectRow
+              Icon={GlobeIcon}
+              label={t('settings.language')}
+              value={language}
+              placeholder={languageLabel(language)}
+              onChange={handleLanguageChange}
+            >
+              <Select.Option title={t('user.languageVi')} value="vi" />
+              <Select.Option title={t('user.languageEn')} value="en" />
+            </SelectRow>
+            <SelectRow
+              Icon={ThemeIcon}
+              label={t('settings.theme')}
+              value={mode}
+              placeholder={themeLabel(mode)}
+              onChange={handleThemeChange}
+            >
+              <Select.Option title={t('user.themeLight')} value="light" />
+              <Select.Option title={t('user.themeDark')} value="dark" />
+              <Select.Option title={t('user.themeSystem')} value="system" />
+            </SelectRow>
+          </div>
+        </section>
 
-      <section className="px-4 mt-6">
-        <h2 className="text-xs font-semibold text-text-secondary uppercase mb-2">{t('settings.sectionInfo')}</h2>
-        <div className="bg-surface rounded-xl overflow-hidden divide-y divide-border">
-          <SettingRow
-            Icon={BotIcon}
-            label={t('settings.aiStatus')}
-            value={aiReady ? t('settings.aiReady') : t('settings.aiNotConfigured')}
-          />
-          <SettingRow Icon={BookIcon} label={t('settings.about')} value="v1.0.0" />
-          <SettingRow Icon={LockIcon} label={t('settings.security')} />
-          <SettingRow Icon={HelpIcon} label={t('settings.support')} value={t('settings.supportValue')} />
-          <SettingRow Icon={RateIcon} label={t('settings.rate')} />
-        </div>
-      </section>
+        <section className="px-4 mt-6">
+          <h2 className="text-xs font-semibold text-text-secondary uppercase mb-2">{t('settings.sectionInfo')}</h2>
+          <div className="bg-surface rounded-xl overflow-hidden divide-y divide-border">
+            <SettingRow
+              Icon={BotIcon}
+              label={t('settings.aiStatus')}
+              value={aiReady ? t('settings.aiReady') : t('settings.aiNotConfigured')}
+            />
+            <SettingRow Icon={BookIcon} label={t('settings.about')} value="v1.0.0" />
+            <SettingRow Icon={LockIcon} label={t('settings.security')} />
+            <SettingRow Icon={HelpIcon} label={t('settings.support')} value={t('settings.supportValue')} />
+            <SettingRow Icon={RateIcon} label={t('settings.rate')} />
+          </div>
+        </section>
 
-      <footer className="px-4 mt-6 pb-8 text-xs text-text-subtle text-center">
-        <p>{t('settings.footer.copyright')}</p>
-      </footer>
+        <footer className="px-4 mt-6 pb-8 text-xs text-text-subtle text-center">
+          <p>{t('settings.footer.copyright')}</p>
+        </footer>
+      </div>
     </div>
   )
 }
