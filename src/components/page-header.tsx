@@ -23,7 +23,7 @@ export function PageHeader({ title, onBack, right }: Props) {
         <div className="w-16" />
       )}
       <h1 className="text-lg font-bold flex-1 text-center">{title}</h1>
-      <div className="w-16 text-right">{right}</div>
+      <div>{right}</div>
     </header>
   )
 }
