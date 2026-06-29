@@ -17,7 +17,15 @@
       "Chemistry basics",
       "English grammar"
     ],
-    "aiNotConfiguredRandom": "AI is not configured. Questions will be random from the local bank."
+    "aiNotConfiguredRandom": "AI is not configured. Questions will be random from the local bank.",
+    "menu": "Menu",
+    "menuNew": "New chat",
+    "menuSearch": "Search chats",
+    "menuRefresh": "Refresh conversation",
+    "menuPinned": "Pinned",
+    "menuConversations": "Conversations",
+    "menuEmpty": "No items yet",
+    "menuCurrentSession": "Current session"
   },
   "subjects": {
     "math": "Math",

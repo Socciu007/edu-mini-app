@@ -12,7 +12,15 @@
     "back": "Quay lại",
     "empty": "Hãy chọn môn học và bắt đầu!",
     "starterPrompts": ["Cho tôi câu hỏi Toán", "Explain photosynthesis", "Hóa học lớp 10", "Tiếng Anh ngữ pháp"],
-    "aiNotConfiguredRandom": "AI chưa được cấu hình. Câu hỏi sẽ random từ ngân hàng cục bộ."
+    "aiNotConfiguredRandom": "AI chưa được cấu hình. Câu hỏi sẽ random từ ngân hàng cục bộ.",
+    "menu": "Menu",
+    "menuNew": "Đoạn hội thoại mới",
+    "menuSearch": "Tìm kiếm chat",
+    "menuRefresh": "Làm mới hội thoại",
+    "menuPinned": "Đã ghim",
+    "menuConversations": "Hội thoại",
+    "menuEmpty": "Chưa có mục nào",
+    "menuCurrentSession": "Phiên hiện tại"
   },
   "subjects": {
     "math": "Toán",
