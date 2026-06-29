@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useLayoutEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { ChatInput } from '../components/chat/chat-input'
@@ -17,19 +17,21 @@ export default function ChatPage() {
   const aiReady = Boolean(import.meta.env.VITE_AI_API_KEY)
 
   const listRef = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: 'smooth' })
-  }, [messages.length])
+  useLayoutEffect(() => {
+    if (!listRef.current) return
+
+    listRef.current.scrollTop = listRef.current.scrollHeight
+  }, [messages])
 
   return (
     <div className="flex flex-col">
       <PageHeader title={t('tabs.chat')} onBack={() => nav('/')} />
       {!aiReady && (
-        <div className="bg-[#FEF9C3] text-[#000] text-xs px-4 py-2 border-b border-border">
+        <div className="fixed top-[4.5rem] left-0 right-0 bg-[#FEF9C3] text-[#000] text-xs px-4 py-2 border-b border-border">
           {t('chat.aiNotConfiguredRandom')}
         </div>
       )}
-      <div ref={listRef} className="flex-1 px-2 bg-background pb-10">
+      <div ref={listRef} className="flex-1 mt-[6.5rem] px-2 bg-background pb-10">
         {messages.length === 0 ? (
           <EmptyState onPickPrompt={(p) => sendUserMessage(p)} />
         ) : (

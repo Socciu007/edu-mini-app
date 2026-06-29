@@ -35,7 +35,7 @@ export default function UserPage() {
   const setMode = useThemeStore((s) => s.setMode)
 
   return (
-    <div className="pb-16">
+    <div className="pb-2">
       <GradientHeader
         title={t('user.loginTitle')}
         subtitle={t('user.loginSubtitle')}

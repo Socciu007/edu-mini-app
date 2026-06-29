@@ -28,10 +28,10 @@ export default function ReviewPage() {
   const nav = useNavigate()
 
   return (
-    <div className="pb-16">
+    <div className="pb-0">
       <PageHeader title={t('review.title')} onBack={() => nav(-1)} />
 
-      <section className="p-4">
+      <section className="px-4 mt-[5.5rem]">
         <h2 className="text-sm font-medium text-text-secondary mb-2">{t('review.stats')}</h2>
         <div className="grid grid-cols-3 gap-2 text-center">
           <div className="rounded-lg border border-border p-3 bg-accent-soft">

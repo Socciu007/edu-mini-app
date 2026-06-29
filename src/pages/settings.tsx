@@ -107,10 +107,10 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="pb-16">
+    <div className="pb-2">
       <PageHeader title={t('settings.title')} onBack={() => nav(-1)} />
 
-      <section className="px-4 mt-4">
+      <section className="px-4 mt-[5.5rem]">
         <h2 className="text-xs font-semibold text-text-secondary uppercase mb-2">{t('settings.sectionGeneral')}</h2>
         <div className="bg-surface rounded-xl overflow-hidden divide-y divide-border">
           <SelectRow

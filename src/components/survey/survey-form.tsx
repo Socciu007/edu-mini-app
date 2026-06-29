@@ -105,7 +105,7 @@ export function SurveyForm({ onSubmit, isSubmitting }: Props) {
   ]
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 space-y-4">
+    <form onSubmit={handleSubmit} className="p-4 pt-[5.5rem] space-y-4">
       <SelectField
         label={t('survey.form.subject')}
         value={form.subject}

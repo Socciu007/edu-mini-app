@@ -14,7 +14,7 @@ export function PageHeader({ title, onBack, right }: Props) {
   const showBack = Boolean(onBack)
   const handleBack = onBack ?? (() => nav(-1))
   return (
-    <header className="flex items-center justify-between px-4 py-3 bg-header">
+    <header className="fixed top-0 left-0 right-0 flex items-center justify-between px-2 py-3 bg-header z-20">
       {showBack ? (
         <button onClick={handleBack} className="w-16 bg-transparent text-left border-none" aria-label="Back">
           <ArrowLeft className="w-5 h-5 text-text-secondary" />
